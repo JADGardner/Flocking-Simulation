@@ -17,6 +17,12 @@ public class IntelligentBoid extends DynamicBoid {
 	private Vector cohesionVector = new Vector();
 	private Vector seperationVector = new Vector();
 	private Vector alignmentVector = new Vector();
+	
+	private boolean cohesionOn = true;
+	private boolean seperationOn = true;
+	private boolean alignmentOn = true;
+	private boolean boundryOn = true;
+	private boolean mouseAvoidOn = true;
 
 
 	// Constructor
@@ -32,22 +38,32 @@ public class IntelligentBoid extends DynamicBoid {
 	public void calculateVelocity(List<IntelligentBoid> allBoids, int maxX, int maxY, Point mousePoint) {
 		
 		cohesionSperationAlignment(allBoids);
-		Vector boundaryVector = boundaryVector(allBoids, maxX, maxY);
+		Vector boundaryVector = boundaryVector(maxX, maxY);
 		Vector avoidMouseVector = avoidMouse(mousePoint);
 		
-		velocity.add(cohesionVector);
-		velocity.add(seperationVector);
-		velocity.add(alignmentVector);
-		velocity.add(boundaryVector);
-		velocity.add(avoidMouseVector);
+		if(cohesionOn) {
+			velocity.add(cohesionVector);
+		}
 		
+		if(seperationOn) {
+			velocity.add(seperationVector);
+		}
+
+		if(alignmentOn) {
+			velocity.add(alignmentVector);
+		}
+		
+		if(boundryOn) {
+			velocity.add(boundaryVector);
+		}
+		
+		if(mouseAvoidOn) {
+			velocity.add(avoidMouseVector);
+		}
+
 		if(velocity.getMagnitude() > maxSpeed) {
 			velocity.setMagnitude(maxSpeed);
 		}
-		/*
-		else if (velocity.getMagnitude() < minSpeed){
-			velocity.setMagnitude(minSpeed);
-		}*/
 		
 	}
 	
@@ -102,7 +118,7 @@ public class IntelligentBoid extends DynamicBoid {
 		alignmentVector.scale(alignmentConstant);
 	}
 	
-	private Vector boundaryVector(List<IntelligentBoid> allBoids, int maxX, int maxY) {
+	private Vector boundaryVector(int maxX, int maxY) {
 		int scale = 20;
 		double scalingFactor = 0.5;
 		Vector bounaryVector = new Vector();
@@ -143,6 +159,16 @@ public class IntelligentBoid extends DynamicBoid {
 		
 		
 		return avoidMouseVector;
+	}
+	
+	private Vector tendToPlace(Vector location) {
+		Vector attractionVector = new Vector();
+		
+		attractionVector.equals(location);
+		attractionVector.sub(position);
+		attractionVector.scale(0.01);
+		
+		return attractionVector;
 	}
 
 	public void setAlignment(double alignment) {
