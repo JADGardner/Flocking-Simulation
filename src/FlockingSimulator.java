@@ -13,13 +13,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import boids.IntelligentBoid;
 import drawing.Canvas;
+import gui.SliderPanel;
 import tools.Utils;
 
 public class FlockingSimulator {
@@ -28,11 +28,11 @@ public class FlockingSimulator {
 	private JPanel sidePanel;
 	private JPanel lowerPanel;
 	private BoxLayout sideLayout;
-	private JSlider maxSpeed;
-	private JSlider cohesionSlider;
-	private JSlider sperationSlider;
-	private JSlider alignmentSlider;
-	private JSlider mouseAvoidanceSlider;
+	private SliderPanel maxSpeedSlider;
+	private SliderPanel cohesionSlider;
+	private SliderPanel sperationSlider;
+	private SliderPanel alignmentSlider;
+	private SliderPanel mouseAvoidanceSlider;
 	private JButton addBoidButton;
 	private JButton removeBoidButton;
 	
@@ -76,11 +76,11 @@ public class FlockingSimulator {
 		lowerPanel.setPreferredSize(new Dimension(WINDOW_X_SIZE, 70));
 		lowerPanel.setBackground(Color.white);
 		
-		maxSpeed = new JSlider(MIN_SPEED, MAX_SPEED);
-		cohesionSlider = new JSlider(MIN_COHESION_CONSTANT, MAX_COHESION_CONSTANT);
-		sperationSlider = new JSlider(MIN_SEPERATION_CONSTANT, MAX_SEPERATION_CONSTANT);
-		alignmentSlider = new JSlider(MIN_ALIGNMENT_CONSTANT, MAX_ALIGNMENT_CONSTANT);
-		mouseAvoidanceSlider = new JSlider(MIN_MOUSE_AVOID_CONSTANT, MAX_MOUSE_AVOID_CONSTANT);
+		maxSpeedSlider = new SliderPanel("Speed", MIN_SPEED, MAX_SPEED);
+		cohesionSlider = new SliderPanel("Cohesion",MIN_COHESION_CONSTANT, MAX_COHESION_CONSTANT);
+		sperationSlider = new SliderPanel("Seperation",MIN_SEPERATION_CONSTANT, MAX_SEPERATION_CONSTANT);
+		alignmentSlider = new SliderPanel("Alignment",MIN_ALIGNMENT_CONSTANT, MAX_ALIGNMENT_CONSTANT);
+		mouseAvoidanceSlider = new SliderPanel("Mouse Avoidance",MIN_MOUSE_AVOID_CONSTANT, MAX_MOUSE_AVOID_CONSTANT);
 		
 		addBoidButton = new JButton("Add");
 		removeBoidButton = new JButton("Remove");
@@ -90,7 +90,7 @@ public class FlockingSimulator {
 
 		frame.add(sidePanel, BorderLayout.EAST);
 		frame.add(lowerPanel, BorderLayout.SOUTH);
-		sidePanel.add(maxSpeed);
+		sidePanel.add(maxSpeedSlider);
 		sidePanel.add(cohesionSlider);
 		sidePanel.add(sperationSlider);
 		sidePanel.add(alignmentSlider);
@@ -100,61 +100,61 @@ public class FlockingSimulator {
 		
 		frame.add(canvas, BorderLayout.CENTER);
 		
-		maxSpeed.addChangeListener(new ChangeListener() {
+		maxSpeedSlider.getSlider().addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setMaxSpeed(maxSpeed.getValue());
+						intelligentBoid.setMaxSpeed(maxSpeedSlider.getSlider().getValue());
 					}
 				}		
 			}
 		});
 		
-		cohesionSlider.addChangeListener(new ChangeListener() {
+		cohesionSlider.getSlider().addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setCohesion((cohesionSlider.getValue()/100));
+						intelligentBoid.setCohesion((cohesionSlider.getSlider().getValue()/100));
 					}
 				}		
 			}
 		});
 		
-		sperationSlider.addChangeListener(new ChangeListener() {
+		sperationSlider.getSlider().addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setSeperation(sperationSlider.getValue());
+						intelligentBoid.setSeperation(sperationSlider.getSlider().getValue());
 					}
 				}		
 			}
 		});
 		
-		alignmentSlider.addChangeListener(new ChangeListener() {
+		alignmentSlider.getSlider().addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setAlignment((alignmentSlider.getValue()/1000));
+						intelligentBoid.setAlignment((alignmentSlider.getSlider().getValue()/1000));
 					}
 				}
 			}
 		});
 		
-		mouseAvoidanceSlider.addChangeListener(new ChangeListener() {
+		mouseAvoidanceSlider.getSlider().addChangeListener(new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setAvoidMouseConstant(mouseAvoidanceSlider.getValue());
+						intelligentBoid.setAvoidMouseConstant(mouseAvoidanceSlider.getSlider().getValue());
 					}
 				}
 			}
