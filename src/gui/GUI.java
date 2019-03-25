@@ -3,9 +3,11 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -46,7 +48,7 @@ public class GUI {
 		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 		size = (int) (0.5*screenDimension.getWidth());
 		
-		frame.setSize(size, size);
+		frame.setSize((int) (1.374*size), size);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setResizable(false);
@@ -77,25 +79,48 @@ public class GUI {
 		alignmentSlider = new SliderPanel("Alignment",MIN_ALIGNMENT_CONSTANT, MAX_ALIGNMENT_CONSTANT);
 		mouseAvoidanceSlider = new SliderPanel("Mouse Avoidance",MIN_MOUSE_AVOID_CONSTANT, MAX_MOUSE_AVOID_CONSTANT);
 		
+
+		
 		sidePanel.add(maxSpeedSlider);
 		sidePanel.add(cohesionSlider);
 		sidePanel.add(sperationSlider);
 		sidePanel.add(alignmentSlider);
 		sidePanel.add(mouseAvoidanceSlider);
 		
-		addBoidButton = new JButton("Add");
-		removeBoidButton = new JButton("Remove");
+
 		
-		addBoidButton.setToolTipText("Add a boid"); // show a message 
-		
-		sidePanel.add(addBoidButton);
-		sidePanel.add(removeBoidButton);
 	}
 	
 	private void createLowerPanel() {
 		lowerPanel = new JPanel();
-		lowerPanel.setPreferredSize(new Dimension(size, (int) (0.0654*size)));
+		lowerPanel.setMinimumSize(new Dimension(size, (int) (0.0654*size)));
+		lowerPanel.setMaximumSize(new Dimension(size, (int) (0.0654*size)));
 		lowerPanel.setBackground(Color.white);
+		
+		addBoidButton = new JButton();
+		addBoidButton.setBackground(Color.white);
+		addBoidButton.setBorder(null);
+		
+		ImageIcon plusIcon = new ImageIcon("plus.png");
+		plusIcon = scaleImageIcon(plusIcon, (int) (0.0654*size));
+		
+	
+		addBoidButton.setIcon(plusIcon);
+		addBoidButton.setToolTipText("Add a boid"); // show a message 
+		
+		removeBoidButton = new JButton();
+		removeBoidButton.setBackground(Color.white);
+		removeBoidButton.setBorder(null);
+		
+		ImageIcon subtractIcon = new ImageIcon("subtract.png");
+		subtractIcon = scaleImageIcon(subtractIcon, (int) (0.0654*size));
+		
+		removeBoidButton.setIcon(subtractIcon);
+		removeBoidButton.setToolTipText("Remove a boid"); // show a message 
+		
+		lowerPanel.add(addBoidButton, BorderLayout.CENTER);
+		lowerPanel.add(removeBoidButton, BorderLayout.CENTER);
+		
 	}
 
 	public Canvas getCanvas() {
@@ -104,6 +129,13 @@ public class GUI {
 	
 	public static void main(String[] args) {
 		new GUI();
+	}
+	
+	private ImageIcon scaleImageIcon(ImageIcon i, int size) {
+		Image image = i.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		i = new ImageIcon(newimg);  // transform it back
+		return i;
 	}
 
 }
