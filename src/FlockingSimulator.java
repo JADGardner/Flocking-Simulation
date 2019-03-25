@@ -196,7 +196,7 @@ public class FlockingSimulator {
 		
 		int x = 0;
 		int y = 0;
-		for(int i = 0; i < 600; i++){
+		for(int i = 0; i < 700; i++){
 			int r = Utils.randomInt(4);
 			switch(r) {
 			case 0:
