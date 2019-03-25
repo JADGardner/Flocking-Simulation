@@ -17,6 +17,12 @@ public class IntelligentBoid extends DynamicBoid {
 	private Vector cohesionVector = new Vector();
 	private Vector seperationVector = new Vector();
 	private Vector alignmentVector = new Vector();
+	
+	private boolean cohesionOn = true;
+	private boolean seperationOn = true;
+	private boolean alignmentOn = true;
+	private boolean boundryOn = true;
+	private boolean mouseAvoidOn = true;
 
 
 	// Constructor
@@ -35,19 +41,29 @@ public class IntelligentBoid extends DynamicBoid {
 		Vector boundaryVector = boundaryVector(allBoids, maxX, maxY);
 		Vector avoidMouseVector = avoidMouse(mousePoint);
 		
-		velocity.add(cohesionVector);
-		velocity.add(seperationVector);
-		velocity.add(alignmentVector);
-		velocity.add(boundaryVector);
-		velocity.add(avoidMouseVector);
+		if(cohesionOn) {
+			velocity.add(cohesionVector);
+		}
 		
+		if(seperationOn) {
+			velocity.add(seperationVector);
+		}
+
+		if(alignmentOn) {
+			velocity.add(alignmentVector);
+		}
+		
+		if(boundryOn) {
+			velocity.add(boundaryVector);
+		}
+		
+		if(mouseAvoidOn) {
+			velocity.add(avoidMouseVector);
+		}
+
 		if(velocity.getMagnitude() > maxSpeed) {
 			velocity.setMagnitude(maxSpeed);
 		}
-		/*
-		else if (velocity.getMagnitude() < minSpeed){
-			velocity.setMagnitude(minSpeed);
-		}*/
 		
 	}
 	
@@ -160,5 +176,15 @@ public class IntelligentBoid extends DynamicBoid {
 	public void setAvoidMouseConstant(double avoidMouseConstant) {
 		this.avoidMouseConstant = avoidMouseConstant;
 	}
+
+	public boolean isAlignmentOn() {
+		return alignmentOn;
+	}
+
+	public void setAlignmentOn(boolean alignmentOn) {
+		this.alignmentOn = alignmentOn;
+	}
+	
+	
 
 }

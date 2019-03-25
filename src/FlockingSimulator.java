@@ -184,6 +184,30 @@ public class FlockingSimulator {
 			}
 		});
 		
+		alignmentSlider.getCheckBox().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(alignmentSlider.getCheckBox().isSelected()) {
+					synchronized (boids){
+						for(IntelligentBoid intelligentBoid : boids) {
+							intelligentBoid.setAlignmentOn(true);
+							intelligentBoid.setAlignment(0.120);
+							alignmentSlider.getSlider().setValue(120);
+						}
+					}
+				} else {
+					synchronized (boids){
+						for(IntelligentBoid intelligentBoid : boids) {
+							intelligentBoid.setAlignmentOn(false);
+						}
+					}
+				}
+
+				
+			}
+		});
+		
 		
 		frame.revalidate();
 
