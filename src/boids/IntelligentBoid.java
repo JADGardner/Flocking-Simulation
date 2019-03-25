@@ -13,6 +13,7 @@ public class IntelligentBoid extends DynamicBoid {
 	private double cohesionConstant = 0.01;
 	private double seperationConstant = 1;
 	private double avoidMouseConstant = 100;
+	private double tendToPlaceScaleFactor = 0.01;
 	
 	private Vector cohesionVector = new Vector();
 	private Vector seperationVector = new Vector();
@@ -23,6 +24,7 @@ public class IntelligentBoid extends DynamicBoid {
 	private boolean alignmentOn = true;
 	private boolean boundryOn = true;
 	private boolean mouseAvoidOn = true;
+	private boolean tendToMouseOn = false;
 
 
 	// Constructor
@@ -40,6 +42,11 @@ public class IntelligentBoid extends DynamicBoid {
 		cohesionSperationAlignment(allBoids);
 		Vector boundaryVector = boundaryVector(maxX, maxY);
 		Vector avoidMouseVector = avoidMouse(mousePoint);
+		
+		Vector mousePointVector = new Vector();
+		mousePointVector.setX(mousePoint.getX());
+		mousePointVector.setY(mousePoint.getY());
+		Vector tendToPlaceVector = tendToPlace(mousePointVector);
 		
 		if(cohesionOn) {
 			velocity.add(cohesionVector);
@@ -59,6 +66,10 @@ public class IntelligentBoid extends DynamicBoid {
 		
 		if(mouseAvoidOn) {
 			velocity.add(avoidMouseVector);
+		}
+		
+		if(tendToMouseOn) {
+			velocity.add(tendToPlaceVector);
 		}
 
 		if(velocity.getMagnitude() > maxSpeed) {
@@ -166,7 +177,7 @@ public class IntelligentBoid extends DynamicBoid {
 		
 		attractionVector.equals(location);
 		attractionVector.sub(position);
-		attractionVector.scale(0.01);
+		attractionVector.scale(tendToPlaceScaleFactor);
 		
 		return attractionVector;
 	}
@@ -186,5 +197,6 @@ public class IntelligentBoid extends DynamicBoid {
 	public void setAvoidMouseConstant(double avoidMouseConstant) {
 		this.avoidMouseConstant = avoidMouseConstant;
 	}
+
 
 }

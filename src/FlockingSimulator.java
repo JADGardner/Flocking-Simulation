@@ -149,7 +149,7 @@ public class FlockingSimulator {
 		});
 		
 		mouseAvoidanceSlider.addChangeListener(new ChangeListener() {
-			
+
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
@@ -157,6 +157,7 @@ public class FlockingSimulator {
 						intelligentBoid.setAvoidMouseConstant(mouseAvoidanceSlider.getValue());
 					}
 				}
+
 			}
 		});
 		
@@ -183,33 +184,7 @@ public class FlockingSimulator {
 				}
 			}
 		});
-		
-		/*
-		alignmentSlider.getCheckBox().addActionListener(new ActionListener() {
 			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(alignmentSlider.getCheckBox().isSelected()) {
-					synchronized (boids){
-						for(IntelligentBoid intelligentBoid : boids) {
-							intelligentBoid.setAlignmentOn(true);
-							intelligentBoid.setAlignment(0.120);
-							alignmentSlider.getSlider().setValue(120);
-						}
-					}
-				} else {
-					synchronized (boids){
-						for(IntelligentBoid intelligentBoid : boids) {
-							intelligentBoid.setAlignmentOn(false);
-						}
-					}
-				}
-
-				
-			}
-		});
-		*/
-		
 		
 		frame.revalidate();
 
