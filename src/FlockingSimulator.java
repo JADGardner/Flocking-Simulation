@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -73,7 +74,7 @@ public class FlockingSimulator {
 		sidePanel.setLayout(sideLayout);
 		
 		lowerPanel = new JPanel();
-		lowerPanel.setPreferredSize(new Dimension(WINDOW_X_SIZE, 70));
+		lowerPanel.setPreferredSize(new Dimension(1500, 70));
 		lowerPanel.setBackground(Color.white);
 		
 		maxSpeedSlider = new SliderPanel("Speed", MIN_SPEED, MAX_SPEED);
@@ -82,12 +83,18 @@ public class FlockingSimulator {
 		alignmentSlider = new SliderPanel("Alignment",MIN_ALIGNMENT_CONSTANT, MAX_ALIGNMENT_CONSTANT);
 		mouseAvoidanceSlider = new SliderPanel("Mouse Avoidance",MIN_MOUSE_AVOID_CONSTANT, MAX_MOUSE_AVOID_CONSTANT);
 		
-		addBoidButton = new JButton("Add");
-		removeBoidButton = new JButton("Remove");
-		
+		addBoidButton = new JButton();
+		addBoidButton.setBackground(Color.white);
+		addBoidButton.setBorder(null);
+		addBoidButton.setIcon(new ImageIcon("plus.png"));
 		addBoidButton.setToolTipText("Add a boid"); // show a message 
 
-
+		removeBoidButton = new JButton();
+		removeBoidButton.setBackground(Color.white);
+		removeBoidButton.setBorder(null);
+		removeBoidButton.setIcon(new ImageIcon("subtract.png"));
+		removeBoidButton.setToolTipText("Remove a boid"); // show a message 
+		
 		frame.add(sidePanel, BorderLayout.EAST);
 		frame.add(lowerPanel, BorderLayout.SOUTH);
 		sidePanel.add(maxSpeedSlider);
@@ -95,8 +102,13 @@ public class FlockingSimulator {
 		sidePanel.add(sperationSlider);
 		sidePanel.add(alignmentSlider);
 		sidePanel.add(mouseAvoidanceSlider);
-		sidePanel.add(addBoidButton);
-		sidePanel.add(removeBoidButton);
+		
+		
+		
+		lowerPanel.add(addBoidButton);
+		lowerPanel.add(removeBoidButton);
+		
+		
 		
 		frame.add(canvas, BorderLayout.CENTER);
 		

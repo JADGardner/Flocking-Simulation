@@ -59,10 +59,13 @@ public class GUI {
 		frame.add(sidePanel, BorderLayout.EAST);
 		frame.add(lowerPanel, BorderLayout.SOUTH);
 		frame.add(canvas, BorderLayout.CENTER);
+		
+		frame.revalidate();
 
 	}
 	
 	private void createSidePanel() {
+		sidePanel = new JPanel();
 		sidePanel.setPreferredSize(new Dimension((int) (0.374*size), size));
 		sidePanel.setBackground(Color.white);
 		sideLayout = new BoxLayout(sidePanel, BoxLayout.Y_AXIS);
@@ -90,6 +93,7 @@ public class GUI {
 	}
 	
 	private void createLowerPanel() {
+		lowerPanel = new JPanel();
 		lowerPanel.setPreferredSize(new Dimension(size, (int) (0.0654*size)));
 		lowerPanel.setBackground(Color.white);
 	}
@@ -98,6 +102,8 @@ public class GUI {
 		return canvas;
 	}
 	
-	
+	public static void main(String[] args) {
+		new GUI();
+	}
 
 }
