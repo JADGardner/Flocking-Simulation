@@ -69,11 +69,11 @@ public class Boid {
 		tempPosition = position;
 		
         turn(150);
-        move(20);
+        move(10);
         turn(120);
-        move(20);
+        move(10);
         turn(120);
-        move(20);
+        move(10);
        
         position = tempPosition;
     }
@@ -117,6 +117,10 @@ public class Boid {
 			position.setY(0);
 		}
 
+	}
+	
+	public Canvas getCanvas() {
+		return myCanvas;
 	}
 
 }

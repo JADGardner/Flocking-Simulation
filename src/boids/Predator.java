@@ -15,6 +15,27 @@ public class Predator extends IntelligentBoid {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void draw(){
+        /* Draws the basic turtle shape and equilateral triangle with side length 20*/
+		Vector tempPosition;
+		tempPosition = position;
+		
+        turn(150);
+        move(10);
+        turn(120);
+        move(10);
+        turn(120);
+        move(10);
+       
+        position = tempPosition;
+    }
+	
+	public void unDraw(){
+		getCanvas().removeMostRecentLine();
+		getCanvas().removeMostRecentLine();
+		getCanvas().removeMostRecentLine();
+	}
+	
 	/*
 	 * Predator is going to chase the nearest boid
 	 * will group with other predators but will individually 
