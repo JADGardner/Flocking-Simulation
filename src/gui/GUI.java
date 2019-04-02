@@ -29,14 +29,23 @@ public class GUI {
 	private JButton removeBoidButton;
 	
 	private final int MIN_SPEED = 100;
+	private final int INITIAL_SPEED = 200;
 	private final int MAX_SPEED = 500;
+	
 	private final int MIN_COHESION_CONSTANT = 0;
-	private final int MAX_COHESION_CONSTANT = 100;
+	private final int INITIAL_COHESION_CONSTANT = 1;
+	private final int MAX_COHESION_CONSTANT = 10;
+	
 	private final int MIN_SEPERATION_CONSTANT = 0;
+	private final int INITIAL_SEPERATION_CONSTANT = 10;
 	private final int MAX_SEPERATION_CONSTANT = 100;
+	
 	private final int MIN_ALIGNMENT_CONSTANT = 0;
+	private final int INITIAL_ALIGNMENT_CONSTANT = 120;
 	private final int MAX_ALIGNMENT_CONSTANT = 1000;
+	
 	private final int MIN_MOUSE_AVOID_CONSTANT = 0;
+	private final int INITIAL_MOUSE_AVOID_CONSTANT = 100;
 	private final int MAX_MOUSE_AVOID_CONSTANT = 300;
 	
 	private int size;
@@ -73,11 +82,11 @@ public class GUI {
 		sideLayout = new BoxLayout(sidePanel, BoxLayout.Y_AXIS);
 		sidePanel.setLayout(sideLayout);
 		
-		maxSpeedSlider = new SliderPanel("Speed", MIN_SPEED, MAX_SPEED);
-		cohesionSlider = new SliderPanel("Cohesion",MIN_COHESION_CONSTANT, MAX_COHESION_CONSTANT);
-		sperationSlider = new SliderPanel("Seperation",MIN_SEPERATION_CONSTANT, MAX_SEPERATION_CONSTANT);
-		alignmentSlider = new SliderPanel("Alignment",MIN_ALIGNMENT_CONSTANT, MAX_ALIGNMENT_CONSTANT);
-		mouseAvoidanceSlider = new SliderPanel("Mouse Avoidance",MIN_MOUSE_AVOID_CONSTANT, MAX_MOUSE_AVOID_CONSTANT);
+		maxSpeedSlider = new SliderPanel("Speed", MIN_SPEED, MAX_SPEED, INITIAL_SPEED);
+		cohesionSlider = new SliderPanel("Cohesion",MIN_COHESION_CONSTANT, MAX_COHESION_CONSTANT, INITIAL_COHESION_CONSTANT);
+		sperationSlider = new SliderPanel("Seperation",MIN_SEPERATION_CONSTANT, MAX_SEPERATION_CONSTANT, INITIAL_SEPERATION_CONSTANT);
+		alignmentSlider = new SliderPanel("Alignment",MIN_ALIGNMENT_CONSTANT, MAX_ALIGNMENT_CONSTANT, INITIAL_ALIGNMENT_CONSTANT);
+		mouseAvoidanceSlider = new SliderPanel("Mouse Avoidance",MIN_MOUSE_AVOID_CONSTANT, MAX_MOUSE_AVOID_CONSTANT, INITIAL_MOUSE_AVOID_CONSTANT);
 		
 
 		
@@ -126,16 +135,44 @@ public class GUI {
 	public Canvas getCanvas() {
 		return canvas;
 	}
-	
-	public static void main(String[] args) {
-		new GUI();
-	}
-	
+		
 	private ImageIcon scaleImageIcon(ImageIcon i, int size) {
 		Image image = i.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		i = new ImageIcon(newimg);  // transform it back
 		return i;
+	}
+	
+	public SliderPanel getMaxSpeedSlider() {
+		return maxSpeedSlider;
+	}
+
+	public SliderPanel getCohesionSlider() {
+		return cohesionSlider;
+	}
+
+	public SliderPanel getSperationSlider() {
+		return sperationSlider;
+	}
+
+	public SliderPanel getAlignmentSlider() {
+		return alignmentSlider;
+	}
+
+	public SliderPanel getMouseAvoidanceSlider() {
+		return mouseAvoidanceSlider;
+	}
+	
+	public JButton getAddBoidButton() {
+		return addBoidButton;
+	}
+	
+	public JButton getRemoveBoidButton() {
+		return removeBoidButton;
+	}
+	
+	public static void main(String[] args) {
+		new GUI();
 	}
 
 }

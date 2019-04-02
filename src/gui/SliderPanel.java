@@ -27,7 +27,7 @@ public class SliderPanel extends JPanel {
 	private ImageIcon toggleOnIcon;
 	private ImageIcon toggleOffIcon;
 	
-	public SliderPanel(String name, int min, int max){
+	public SliderPanel(String name, int min, int max, int initial){
 		
 		setBackground(Color.white);
 		TitledBorder titleBorder = BorderFactory.createTitledBorder(
@@ -36,7 +36,7 @@ public class SliderPanel extends JPanel {
 		titleBorder.setTitleFont(new Font("Segoe UI", Font.PLAIN, 30));
 		setBorder(titleBorder);
 		
-		slider = new JSlider(min, max);
+		slider = new JSlider(min, max, initial);
 		slider.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		slider.setMinorTickSpacing(max/10);
 		slider.setMajorTickSpacing(max/2);
