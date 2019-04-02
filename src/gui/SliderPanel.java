@@ -82,8 +82,4 @@ public class SliderPanel extends JPanel {
 		return functionSwitch;
 	}
 	
-	public JCheckBox getCheckBox() {
-		return functionSwitch;
-	}
-	
 }
