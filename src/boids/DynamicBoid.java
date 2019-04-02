@@ -7,7 +7,6 @@ public class DynamicBoid extends Boid {
 	protected double MILLISECONDS_PER_SECOND = 1000;
 	
 	protected int maxSpeed = 200; // max speed of boids in pixels per second
-	protected int minSpeed = 20;
 	protected Vector velocity;
 	
 	public DynamicBoid(Canvas myCanvas, Vector position){
