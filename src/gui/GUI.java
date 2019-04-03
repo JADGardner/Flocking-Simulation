@@ -82,7 +82,7 @@ public class GUI {
 		sideLayout = new BoxLayout(sidePanel, BoxLayout.Y_AXIS);
 		sidePanel.setLayout(sideLayout);
 		
-		maxSpeedSlider = new SliderPanel("Speed", MIN_SPEED, MAX_SPEED, INITIAL_SPEED);
+		maxSpeedSlider = new SliderPanel("Max Speed", MIN_SPEED, MAX_SPEED, INITIAL_SPEED);
 		cohesionSlider = new SliderPanel("Cohesion",MIN_COHESION_CONSTANT, MAX_COHESION_CONSTANT, INITIAL_COHESION_CONSTANT);
 		sperationSlider = new SliderPanel("Seperation",MIN_SEPERATION_CONSTANT, MAX_SEPERATION_CONSTANT, INITIAL_SEPERATION_CONSTANT);
 		alignmentSlider = new SliderPanel("Alignment",MIN_ALIGNMENT_CONSTANT, MAX_ALIGNMENT_CONSTANT, INITIAL_ALIGNMENT_CONSTANT);

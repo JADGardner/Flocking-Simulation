@@ -1,5 +1,8 @@
 package boids;
 
+import java.awt.Point;
+import java.util.List;
+
 import drawing.Canvas;
 import geometry.Vector;
 
@@ -15,17 +18,18 @@ public class Predator extends IntelligentBoid {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
 	public void draw(){
         /* Draws the basic turtle shape and equilateral triangle with side length 20*/
 		Vector tempPosition;
 		tempPosition = position;
 		
         turn(150);
-        move(10);
+        move(20);
         turn(120);
-        move(10);
+        move(20);
         turn(120);
-        move(10);
+        move(20);
        
         position = tempPosition;
     }

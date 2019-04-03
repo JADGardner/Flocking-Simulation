@@ -11,6 +11,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import boids.IntelligentBoid;
+import boids.Predator;
 import gui.GUI;
 import tools.Utils;
 
@@ -187,14 +188,12 @@ public class FlockingSimulator {
 				for (IntelligentBoid intelligentBoid : boids) {
 					intelligentBoid.calculateVelocity(boids, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
 					intelligentBoid.update(deltaTime);
-					//intelligentBoid.wrapPosition(canvas.getWidth(), canvas.getHeight());
 				}
 			}
 
 			synchronized (boids){
 				for (IntelligentBoid intelligentBoid : boids) {
 					intelligentBoid.unDraw();
-					//System.out.println(intelligentBoid.getAngle());
 				}
 			}
 

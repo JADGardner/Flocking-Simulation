@@ -6,24 +6,24 @@ import geometry.Vector;
 
 
 public class IntelligentBoid extends DynamicBoid {
-	private int perceptionRadius = 100;
-	private double seperationRadius = 20;
+	protected int perceptionRadius = 100;
+	protected double seperationRadius = 20;
 
-	private double alignmentConstant = 0.120; //0.125
-	private double cohesionConstant = 0.01;
-	private double seperationConstant = 1;
-	private double avoidMouseConstant = 100;
-	private double tendToPlaceScaleFactor = 0.01;
+	protected double alignmentConstant = 0.120; //0.125
+	protected double cohesionConstant = 0.01;
+	protected double seperationConstant = 1;
+	protected double avoidMouseConstant = 100;
+	protected double tendToPlaceScaleFactor = 0.01;
 
-	private Vector cohesionVector = new Vector();
-	private Vector seperationVector = new Vector();
-	private Vector alignmentVector = new Vector();
+	protected Vector cohesionVector = new Vector();
+	protected Vector seperationVector = new Vector();
+	protected Vector alignmentVector = new Vector();
 
-	private boolean cohesionOn = true;
-	private boolean seperationOn = true;
-	private boolean alignmentOn = true;
-	private boolean boundryOn = true;
-	private boolean mouseAvoidOn = true;
+	protected boolean cohesionOn = true;
+	protected boolean seperationOn = true;
+	protected boolean alignmentOn = true;
+	protected boolean boundryOn = true;
+	protected boolean mouseAvoidOn = true;
 
 
 	// Constructor
