@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -12,6 +11,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.border.TitledBorder;
+
+import tools.Utils;
 
 
 
@@ -48,8 +49,8 @@ public class SliderPanel extends JPanel {
 		
 		toggleOnIcon = new ImageIcon("toggle_on_side.png");
 		toggleOffIcon = new ImageIcon("toggle_off_side.png");
-		toggleOnIcon = scaleImageIcon(toggleOnIcon);
-		toggleOffIcon = scaleImageIcon(toggleOffIcon);
+		toggleOnIcon = Utils.scaleImageIcon(toggleOnIcon, 40);
+		toggleOffIcon = Utils.scaleImageIcon(toggleOffIcon, 40);
 		
 		functionSwitch = new JCheckBox();
 		functionSwitch.setSelected(true);
@@ -64,13 +65,6 @@ public class SliderPanel extends JPanel {
 		setMinimumSize(new Dimension(350, 110));
 		setMaximumSize(new Dimension(350, 110));
 
-	}
-	
-	private ImageIcon scaleImageIcon(ImageIcon i) {
-		Image image = i.getImage(); // transform it 
-		Image newimg = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-		i = new ImageIcon(newimg);  // transform it back
-		return i;
 	}
 	
 	

@@ -27,13 +27,13 @@ public class IntelligentBoid extends DynamicBoid {
 
 
 	// Constructor
-	public IntelligentBoid(Canvas myCanvas, Vector position) {
-		super(myCanvas, position);
+	public IntelligentBoid(Canvas myCanvas, Vector position, int size) {
+		super(myCanvas, position, size);
 	}
 
 	// Constructor
-	public IntelligentBoid(Canvas myCanvas, double xPosition, double yPosition){
-		super(myCanvas, xPosition, yPosition);
+	public IntelligentBoid(Canvas myCanvas, double xPosition, double yPosition, int size){
+		super(myCanvas, xPosition, yPosition, size);
 	}
 
 	public void calculateVelocity(List<IntelligentBoid> allBoids, int maxX, int maxY, Point mousePoint) {
@@ -68,6 +68,7 @@ public class IntelligentBoid extends DynamicBoid {
 
 	}
 
+	
 	private void cohesionSperationAlignment(List<IntelligentBoid> allBoids){
 		double countCohesion = 0;
 		double countAlignment = 0;
@@ -118,6 +119,7 @@ public class IntelligentBoid extends DynamicBoid {
 		alignmentVector.sub(velocity);
 		alignmentVector.scale(alignmentConstant);
 	}
+	
 
 	private Vector boundaryVector(int maxX, int maxY) {
 		int scale = 20;
@@ -175,19 +177,7 @@ public class IntelligentBoid extends DynamicBoid {
 	public void setAlignment(double alignment) {
 		this.alignmentConstant = alignment;
 	}
-
-	public void setCohesion(double cohesion) {
-		this.cohesionConstant = cohesion;
-	}
-
-	public void setSeperation(double seperation) {
-		this.seperationRadius = seperation;
-	}
-
-	public void setAvoidMouseConstant(double avoidMouseConstant) {
-		this.avoidMouseConstant = avoidMouseConstant;
-	}
-
+	
 	public boolean isAlignmentOn() {
 		return alignmentOn;
 	}
@@ -195,6 +185,44 @@ public class IntelligentBoid extends DynamicBoid {
 	public void setAlignmentOn(boolean alignmentOn) {
 		this.alignmentOn = alignmentOn;
 	}
+
+	public void setCohesion(double cohesion) {
+		this.cohesionConstant = cohesion;
+	}
+	
+	public boolean isCohesionOn() {
+		return cohesionOn;
+	}
+
+	public void setCohesionOn(boolean cohesionOn) {
+		this.cohesionOn = cohesionOn;
+	}
+
+	public void setSeperation(double seperation) {
+		this.seperationConstant = seperation;
+	}
+	
+	public boolean isSeperationOn() {
+		return seperationOn;
+	}
+
+	public void setSeperationOn(boolean seperationOn) {
+		this.seperationOn = seperationOn;
+	}
+
+	public void setAvoidMouseConstant(double avoidMouseConstant) {
+		this.avoidMouseConstant = avoidMouseConstant;
+	}
+	
+	public boolean isMouseAvoidOn() {
+		return mouseAvoidOn;
+	}
+
+	public void setMouseAvoidOn(boolean mouseAvoidOn) {
+		this.mouseAvoidOn = mouseAvoidOn;
+	}
+
+
 
 
 

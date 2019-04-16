@@ -1,5 +1,8 @@
 package tools;
+import java.awt.Image;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 public class Utils {
 	private static Random randomGenerator = new Random();
@@ -18,5 +21,12 @@ public class Utils {
 
 	public static int randomInt(int paramInt) {
 		return randomGenerator.nextInt(paramInt);
+	}
+	
+	public static ImageIcon scaleImageIcon(ImageIcon i, int size) {
+		Image image = i.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		i = new ImageIcon(newimg);  // transform it back
+		return i;
 	}
 }

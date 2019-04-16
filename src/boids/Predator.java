@@ -1,44 +1,20 @@
 package boids;
 
-import java.awt.Point;
-import java.util.List;
-
 import drawing.Canvas;
 import geometry.Vector;
 
 public class Predator extends IntelligentBoid {
 
-	public Predator(Canvas myCanvas, Vector position) {
-		super(myCanvas, position);
+	public Predator(Canvas myCanvas, Vector position, int size) {
+		super(myCanvas, position, size);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Predator(Canvas myCanvas, double xPosition, double yPosition) {
-		super(myCanvas, xPosition, yPosition);
+	public Predator(Canvas myCanvas, double xPosition, double yPosition, int size) {
+		super(myCanvas, xPosition, yPosition, size);
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	public void draw(){
-        /* Draws the basic turtle shape and equilateral triangle with side length 20*/
-		Vector tempPosition;
-		tempPosition = position;
-		
-        turn(150);
-        move(20);
-        turn(120);
-        move(20);
-        turn(120);
-        move(20);
-       
-        position = tempPosition;
-    }
-	
-	public void unDraw(){
-		getCanvas().removeMostRecentLine();
-		getCanvas().removeMostRecentLine();
-		getCanvas().removeMostRecentLine();
-	}
 	
 	/*
 	 * Predator is going to chase the nearest boid

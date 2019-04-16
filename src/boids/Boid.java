@@ -6,17 +6,20 @@ import geometry.*;
 public class Boid {
 	private Canvas myCanvas;
 	private double currentAngle = 0;
+	private int size;
 	
 	protected Vector position;
 
-	public Boid(Canvas myCanvas, Vector position) {
+	public Boid(Canvas myCanvas, Vector position, int size) {
 		this.myCanvas = myCanvas;
 		this.position = position;
+		this.size = size;
 	}
 	
-	public Boid(Canvas myCanvas, double xPosition, double yPosition){
+	public Boid(Canvas myCanvas, double xPosition, double yPosition, int size){
 		this.myCanvas = myCanvas;
 		position = new Vector(xPosition, yPosition);
+		this.size = size;
 	}
 
 	/**
@@ -69,11 +72,11 @@ public class Boid {
 		tempPosition = position;
 		
         turn(150);
-        move(10);
+        move(size);
         turn(120);
-        move(10);
+        move(size);
         turn(120);
-        move(10);
+        move(size);
        
         position = tempPosition;
     }

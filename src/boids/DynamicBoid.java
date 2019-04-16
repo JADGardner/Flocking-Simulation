@@ -9,14 +9,14 @@ public class DynamicBoid extends Boid {
 	protected int maxSpeed = 200; // max speed of boids in pixels per second
 	protected Vector velocity;
 	
-	public DynamicBoid(Canvas myCanvas, Vector position){
-		super(myCanvas, position);
+	public DynamicBoid(Canvas myCanvas, Vector position, int size){
+		super(myCanvas, position, size);
 		velocity = new Vector();
 		draw();
 	}
 	
-	public DynamicBoid(Canvas myCanvas, double xPosition, double yPosition){
-		super(myCanvas, xPosition, yPosition);
+	public DynamicBoid(Canvas myCanvas, double xPosition, double yPosition, int size){
+		super(myCanvas, xPosition, yPosition, size);
 		velocity = new Vector();
 		draw();
 	}
