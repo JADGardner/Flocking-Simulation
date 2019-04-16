@@ -17,7 +17,7 @@ public class GUI {
 	private LowerPanel lowerPanel;
 
 	final int MIN_SPEED = 100;
-	final int INITIAL_SPEED = 200;
+	final int INITIAL_SPEED = 300;
 	final int MAX_SPEED = 500;
 	
 	final int MIN_COHESION_CONSTANT = 0;

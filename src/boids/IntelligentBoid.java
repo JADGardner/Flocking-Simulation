@@ -36,9 +36,9 @@ public class IntelligentBoid extends DynamicBoid {
 		super(myCanvas, xPosition, yPosition, size);
 	}
 
-	public void calculateVelocity(List<IntelligentBoid> allBoids, int maxX, int maxY, Point mousePoint) {
+	public void calculateVelocity(List<? extends IntelligentBoid> friendlyBoids, List<? extends IntelligentBoid> otherBoids, int maxX, int maxY, Point mousePoint) {
 
-		cohesionSperationAlignment(allBoids);
+		cohesionSperationAlignment(friendlyBoids);
 		Vector boundaryVector = boundaryVector(maxX, maxY);
 		Vector avoidMouseVector = avoidMouse(mousePoint);
 
@@ -69,7 +69,7 @@ public class IntelligentBoid extends DynamicBoid {
 	}
 
 	
-	private void cohesionSperationAlignment(List<IntelligentBoid> allBoids){
+	private void cohesionSperationAlignment(List<? extends IntelligentBoid> allBoids){
 		double countCohesion = 0;
 		double countAlignment = 0;
 
@@ -172,6 +172,12 @@ public class IntelligentBoid extends DynamicBoid {
 		attractionVector.scale(tendToPlaceScaleFactor);
 
 		return attractionVector;
+	}
+	
+	private Vector fleePredator(List<? extends IntelligentBoid> predators) {
+		Vector fellPredatorVector = new Vector();
+		
+		return fellPredatorVector;
 	}
 
 	public void setAlignment(double alignment) {

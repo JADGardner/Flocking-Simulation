@@ -28,30 +28,30 @@ public class ActionListeners {
 		lowePanelActionListeners(FS, gui, lowerPanel);
 	}
 	
-	private void sidePanelActionListeners(GUI g, SidePanel s){
+	private void sidePanelActionListeners(GUI g, SidePanel sp){
 		
-		s.maxSpeedSlider.getSlider().addChangeListener(new ChangeListener() {
+		sp.maxSpeedSlider.getSlider().addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setMaxSpeed(s.maxSpeedSlider.getSlider().getValue());
+						intelligentBoid.setMaxSpeed(sp.maxSpeedSlider.getSlider().getValue());
 					}
 				}
 			}
 		});
 		
-		s.maxSpeedSlider.getCheckBox().addActionListener(new ActionListener() {
+		sp.maxSpeedSlider.getCheckBox().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(s.maxSpeedSlider.getCheckBox().isSelected()) {
+				if(sp.maxSpeedSlider.getCheckBox().isSelected()) {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setAlignmentOn(true);
 							intelligentBoid.setMaxSpeed(g.INITIAL_SPEED);
-							s.maxSpeedSlider.getSlider().setValue(g.INITIAL_SPEED);
+							sp.maxSpeedSlider.getSlider().setValue(g.INITIAL_SPEED);
 						}
 					}
 				} else {
@@ -66,28 +66,28 @@ public class ActionListeners {
 			}
 		});
 
-		s.cohesionSlider.getSlider().addChangeListener(new ChangeListener() {
+		sp.cohesionSlider.getSlider().addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setCohesion((s.cohesionSlider.getSlider().getValue()/10));
+						intelligentBoid.setCohesion((sp.cohesionSlider.getSlider().getValue()/10));
 					}
 				}
 			}
 		});
 		
-		s.cohesionSlider.getCheckBox().addActionListener(new ActionListener() {
+		sp.cohesionSlider.getCheckBox().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(s.cohesionSlider.getCheckBox().isSelected()) {
+				if(sp.cohesionSlider.getCheckBox().isSelected()) {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setCohesionOn(true);
 							intelligentBoid.setCohesion((g.INITIAL_COHESION_CONSTANT/10));
-							s.cohesionSlider.getSlider().setValue(g.INITIAL_COHESION_CONSTANT);
+							sp.cohesionSlider.getSlider().setValue(g.INITIAL_COHESION_CONSTANT);
 						}
 					}
 				} else {
@@ -102,28 +102,28 @@ public class ActionListeners {
 			}
 		});
 
-		s.sperationSlider.getSlider().addChangeListener(new ChangeListener() {
+		sp.sperationSlider.getSlider().addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setSeperation(s.sperationSlider.getSlider().getValue()/10);
+						intelligentBoid.setSeperation(sp.sperationSlider.getSlider().getValue()/10);
 					}
 				}
 			}
 		});
 		
-		s.sperationSlider.getCheckBox().addActionListener(new ActionListener() {
+		sp.sperationSlider.getCheckBox().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(s.sperationSlider.getCheckBox().isSelected()) {
+				if(sp.sperationSlider.getCheckBox().isSelected()) {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setSeperationOn(true);
 							intelligentBoid.setSeperation(1);
-							s.sperationSlider.getSlider().setValue(g.INITIAL_SEPERATION_CONSTANT);
+							sp.sperationSlider.getSlider().setValue(g.INITIAL_SEPERATION_CONSTANT);
 						}
 					}
 				} else {
@@ -138,29 +138,29 @@ public class ActionListeners {
 			}
 		});
 
-		s.alignmentSlider.getSlider().addChangeListener(new ChangeListener() {
+		sp.alignmentSlider.getSlider().addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setAlignment((s.alignmentSlider.getSlider().getValue()/1000));
+						intelligentBoid.setAlignment((sp.alignmentSlider.getSlider().getValue()/1000));
 					}
 				}
 			}
 		});
 
 		
-		s.alignmentSlider.getCheckBox().addActionListener(new ActionListener() {
+		sp.alignmentSlider.getCheckBox().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(s.alignmentSlider.getCheckBox().isSelected()) {
+				if(sp.alignmentSlider.getCheckBox().isSelected()) {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setAlignmentOn(true);
 							intelligentBoid.setAlignment((g.INITIAL_ALIGNMENT_CONSTANT/1000));
-							s.alignmentSlider.getSlider().setValue(g.INITIAL_ALIGNMENT_CONSTANT);
+							sp.alignmentSlider.getSlider().setValue(g.INITIAL_ALIGNMENT_CONSTANT);
 						}
 					}
 				} else {
@@ -175,29 +175,29 @@ public class ActionListeners {
 			}
 		});
 		
-		s.mouseAvoidanceSlider.getSlider().addChangeListener(new ChangeListener() {
+		sp.mouseAvoidanceSlider.getSlider().addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setAvoidMouseConstant(s.mouseAvoidanceSlider.getSlider().getValue());
+						intelligentBoid.setAvoidMouseConstant(sp.mouseAvoidanceSlider.getSlider().getValue());
 					}
 				}
 
 			}
 		});
 		
-		s.mouseAvoidanceSlider.getCheckBox().addActionListener(new ActionListener() {
+		sp.mouseAvoidanceSlider.getCheckBox().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(s.mouseAvoidanceSlider.getCheckBox().isSelected()) {
+				if(sp.mouseAvoidanceSlider.getCheckBox().isSelected()) {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setMouseAvoidOn(true);
 							intelligentBoid.setAvoidMouseConstant(g.INITIAL_MOUSE_AVOID_CONSTANT);
-							s.mouseAvoidanceSlider.getSlider().setValue(g.INITIAL_MOUSE_AVOID_CONSTANT);
+							sp.mouseAvoidanceSlider.getSlider().setValue(g.INITIAL_MOUSE_AVOID_CONSTANT);
 						}
 					}
 				} else {
@@ -216,9 +216,9 @@ public class ActionListeners {
 	
 	
 	
-	private void lowePanelActionListeners(FlockingSimulator FS, GUI g, LowerPanel l){
+	private void lowePanelActionListeners(FlockingSimulator FS, GUI g, LowerPanel lp){
 		
-		l.addBoidButton.addActionListener(new ActionListener() {
+		lp.addBoidButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -227,12 +227,12 @@ public class ActionListeners {
 				}
 				
 				g.numberOfBoids++;
-				l.boidCounter.setText("Boids: " + g.numberOfBoids);
+				lp.boidCounter.setText("Boids: " + g.numberOfBoids);
 
 			}
 		});
 
-		l.removeBoidButton.addActionListener(new ActionListener() {
+		lp.removeBoidButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -243,7 +243,7 @@ public class ActionListeners {
 					}
 				}
 				g.numberOfBoids--;
-				l.boidCounter.setText("Boids: " + g.numberOfBoids);
+				lp.boidCounter.setText("Boids: " + g.numberOfBoids);
 			}
 		});
 	}

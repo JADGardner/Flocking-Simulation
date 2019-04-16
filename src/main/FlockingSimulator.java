@@ -16,7 +16,10 @@ import tools.Utils;
 public class FlockingSimulator {
 
 	private GUI gui;
+	
+	@SuppressWarnings("unused")
 	private ActionListeners actionListeners;
+	
 	private List<IntelligentBoid> boids;
 	private List<Predator> predators;
 	private int numberOfBoids = 500;
@@ -27,7 +30,7 @@ public class FlockingSimulator {
 		gui = new GUI(this);
 		
 		setUpBoids();
-		//setUpPredators();
+		setUpPredators();
 		
 		actionListeners = new ActionListeners(this);
 		
@@ -36,7 +39,10 @@ public class FlockingSimulator {
 	
 	private void setUpPredators(){
 		predators = Collections.synchronizedList(new ArrayList<Predator>());
-		predators.add(new Predator(gui.getCanvas(), 100, 100, predatorSize));
+		predators.add(new Predator(gui.getCanvas(), -10, 100, predatorSize));
+		predators.add(new Predator(gui.getCanvas(), -10, 100, predatorSize));
+		predators.add(new Predator(gui.getCanvas(), -10, 100, predatorSize));
+		predators.add(new Predator(gui.getCanvas(), -10, 100, predatorSize));
 	}
 	
 	private void setUpBoids(){
@@ -83,26 +89,42 @@ public class FlockingSimulator {
 
 			synchronized (boids){
 				for (IntelligentBoid intelligentBoid : boids) {
-					intelligentBoid.calculateVelocity(boids, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
+					intelligentBoid.calculateVelocity(boids, predators, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
 					intelligentBoid.update(deltaTime);
 				}
 			}
 			
+			synchronized (predators){
+				for (Predator predator : predators) {
+					predator.calculateVelocity(predators, boids, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
+					predator.update(deltaTime);
+				}
+			}
 			
 			synchronized (boids){
 				for (IntelligentBoid intelligentBoid : boids) {
 					intelligentBoid.unDraw();
 				}
 			}
-
+			
+			synchronized (predators){
+				for (Predator predator : predators) {
+					predator.unDraw();
+				}
+			}
 
 			synchronized (boids){
 				for (IntelligentBoid intelligentBoid : boids) {
-
 					intelligentBoid.draw();
 				}
 			}
 
+			synchronized (predators){
+				for (Predator predator : predators) {
+					predator.draw();
+				}
+			}
+			
 			Utils.pause(deltaTime);
 
 		}
