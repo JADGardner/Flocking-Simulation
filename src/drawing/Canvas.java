@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.Line2D;
 
 import java.util.Collections;
@@ -27,6 +28,7 @@ public class Canvas extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int xSize, ySize;
 	private List<LineSegment> lines;
+	private List<Shape> shapes;
 	private final static int DEFAULT_X = 800;
 	private final static int DEFAULT_Y = 600;
 
@@ -51,6 +53,7 @@ public class Canvas extends JPanel {
 		ySize = y;
 		setupCanvas();
 		lines = Collections.synchronizedList(new ArrayList<LineSegment>());
+		shapes = Collections.synchronizedList(new ArrayList<Shape>());
 	}
 
 	private void setupCanvas() {
@@ -77,6 +80,21 @@ public class Canvas extends JPanel {
 						line.getEndPoint().getX(), line.getEndPoint().getY()));
 			}
 		}
+	}
+	
+	
+	public void addShape(Shape shape) {
+		synchronized (shape) {
+			shapes.add(shape);
+		    repaint();
+		}
+	}
+	
+	public void removeMostRecentShape() {
+		synchronized (shapes) {
+			shapes.remove(shapes.size() - 1);
+		}
+		repaint();
 	}
 
 	/**

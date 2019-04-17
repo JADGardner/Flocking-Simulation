@@ -13,7 +13,7 @@ public class IntelligentBoid extends DynamicBoid {
 	protected double cohesionConstant = 0.01;
 	protected double seperationConstant = 1;
 	protected double avoidMouseConstant = 100;
-	protected double tendToPlaceScaleFactor = 0.01;
+	protected double tendToPlaceConstant = 0.01;
 
 	protected Vector cohesionVector = new Vector();
 	protected Vector seperationVector = new Vector();
@@ -169,7 +169,7 @@ public class IntelligentBoid extends DynamicBoid {
 
 		attractionVector.equals(location);
 		attractionVector.sub(position);
-		attractionVector.scale(tendToPlaceScaleFactor);
+		attractionVector.scale(tendToPlaceConstant);
 
 		return attractionVector;
 	}
