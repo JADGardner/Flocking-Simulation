@@ -144,6 +144,10 @@ public class FlockingSimulator {
 			
 			if(mouseClicked == true){
 				mouseClicked = false;
+				// Check if the place walls option has been pressed
+				// if both are true check if mouse click is on canvas
+				// if that is true create a wall object
+				// this might be able to be done within the event listener
 			}
 			
 
