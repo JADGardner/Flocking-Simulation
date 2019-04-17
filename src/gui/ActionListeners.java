@@ -7,8 +7,13 @@ import java.util.List;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.sun.swing.internal.plaf.metal.resources.metal;
+
 import boids.IntelligentBoid;
+import boids.Predator;
+import drawing.Portal;
 import main.FlockingSimulator;
+import tools.Utils;
 
 public class ActionListeners {
 
@@ -16,6 +21,8 @@ public class ActionListeners {
 	SidePanel sidePanel;
 	LowerPanel lowerPanel;
 	List<IntelligentBoid> boids;
+	private List<Predator> predators;
+	List<Portal> portals;
 	
 	public ActionListeners(FlockingSimulator FS){
 		
@@ -23,6 +30,8 @@ public class ActionListeners {
 		sidePanel = gui.getSidePanel();
 		lowerPanel = gui.getLowerPanel();
 		boids = FS.getBoids();
+		predators = FS.getPredators();
+		portals = FS.getPortals();
 		
 		sidePanelActionListeners(gui, sidePanel);
 		lowePanelActionListeners(FS, gui, lowerPanel);
@@ -211,6 +220,30 @@ public class ActionListeners {
 
 			}
 		});
+		
+		sp.addVortexButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				synchronized (portals){
+					if(portals.size() == 0){
+						int x = Utils.randomInt(gui.getCanvas().getWidth());
+						int y = Utils.randomInt(gui.getCanvas().getHeight());
+						portals.add(new Portal(x, y));
+						x = Utils.randomInt(gui.getCanvas().getWidth());
+						y = Utils.randomInt(gui.getCanvas().getHeight());
+						portals.add(new Portal(x, y));
+					} else {
+						portals.remove(portals.size() - 1);
+						portals.remove(portals.size() - 1);
+						g.getCanvas().removeShapes();
+					}
+					
+				}
+			}
+		});
+		
+		
 	}
 	
 	
@@ -240,10 +273,40 @@ public class ActionListeners {
 					if(boids.size() > 0){
 						boids.get(boids.size() - 1).unDraw();
 						boids.remove(boids.size() - 1);
+						g.numberOfBoids--;
 					}
 				}
-				g.numberOfBoids--;
+				
 				lp.boidCounter.setText("Boids: " + g.numberOfBoids);
+			}
+		});
+		
+		lp.addPredatorButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				synchronized (predators){
+					predators.add(new Predator(g.getCanvas(), gui.getCanvas().getWidth()/2, gui.getCanvas().getHeight()/2, FS.getPredatorSize()));
+				}
+				
+				g.numberOfPredators++;
+				lp.predatorCounter.setText("Predators: " + g.numberOfPredators);
+
+			}
+		});
+
+		lp.removePredatorButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				synchronized (predators){
+					if(predators.size() > 0){
+						predators.get(predators.size() - 1).unDraw();
+						predators.remove(predators.size() - 1);
+						g.numberOfPredators--;
+					}
+				}
+				lp.predatorCounter.setText("Predators: " + g.numberOfPredators);
 			}
 		});
 	}

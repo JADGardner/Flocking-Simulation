@@ -2,10 +2,11 @@ package boids;
 import java.awt.Point;
 import java.util.List;
 import drawing.Canvas;
+import drawing.Portal;
 import geometry.Vector;
 
 
-public class IntelligentBoid extends DynamicBoid {
+public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	protected int perceptionRadius = 100;
 	protected double seperationRadius = 20;
 
@@ -24,6 +25,7 @@ public class IntelligentBoid extends DynamicBoid {
 	protected boolean alignmentOn = true;
 	protected boolean boundryOn = true;
 	protected boolean mouseAvoidOn = true;
+	protected boolean portalVector = false;
 
 
 	// Constructor
@@ -35,12 +37,20 @@ public class IntelligentBoid extends DynamicBoid {
 	public IntelligentBoid(Canvas myCanvas, double xPosition, double yPosition, int size){
 		super(myCanvas, xPosition, yPosition, size);
 	}
-
-	public void calculateVelocity(List<? extends IntelligentBoid> friendlyBoids, List<? extends IntelligentBoid> otherBoids, int maxX, int maxY, Point mousePoint) {
+	
+	@Override
+	public void calculateVelocity(List<? extends DynamicBoid> friendlyBoids, 
+			List<? extends DynamicBoid> otherBoids, List<Portal> portals, int maxX, int maxY, Point mousePoint) {
 
 		cohesionSperationAlignment(friendlyBoids);
 		Vector boundaryVector = boundaryVector(maxX, maxY);
 		Vector avoidMouseVector = avoidMouse(mousePoint);
+		Vector portalVector = new Vector();
+		
+		if(portals.size() > 0){
+			portalVector = portalVector(portals);
+		}
+
 
 		if(cohesionOn) {
 			velocity.add(cohesionVector);
@@ -61,6 +71,10 @@ public class IntelligentBoid extends DynamicBoid {
 		if(mouseAvoidOn) {
 			velocity.add(avoidMouseVector);
 		}
+		
+		velocity.add(portalVector);
+		
+		velocity.add(fleePredator(otherBoids));
 
 		if(velocity.getMagnitude() > maxSpeed) {
 			velocity.setMagnitude(maxSpeed);
@@ -69,7 +83,7 @@ public class IntelligentBoid extends DynamicBoid {
 	}
 
 	
-	private void cohesionSperationAlignment(List<? extends IntelligentBoid> allBoids){
+	protected void cohesionSperationAlignment(List<? extends DynamicBoid> allBoids){
 		double countCohesion = 0;
 		double countAlignment = 0;
 
@@ -80,7 +94,7 @@ public class IntelligentBoid extends DynamicBoid {
 		seperationVector.scale(0.0);
 
 		synchronized (allBoids){
-			for (IntelligentBoid otherBoid : allBoids) {
+			for (DynamicBoid otherBoid : allBoids) {
 				distanceApart.equals(otherBoid.getPosition());
 				distanceApart.sub(this.getPosition()); // included " this. " for readability
 
@@ -121,7 +135,7 @@ public class IntelligentBoid extends DynamicBoid {
 	}
 	
 
-	private Vector boundaryVector(int maxX, int maxY) {
+	protected Vector boundaryVector(int maxX, int maxY) {
 		int scale = 20;
 		double scalingFactor = 0.5;
 		Vector bounaryVector = new Vector();
@@ -174,10 +188,61 @@ public class IntelligentBoid extends DynamicBoid {
 		return attractionVector;
 	}
 	
-	private Vector fleePredator(List<? extends IntelligentBoid> predators) {
-		Vector fellPredatorVector = new Vector();
+	protected Vector portalVector(List<Portal> portals){
+		Vector portalVector = new Vector();
 		
-		return fellPredatorVector;
+		Vector inputPortalPosition = new Vector();
+		Vector outputPortalPosition = new Vector();
+		
+		synchronized (portals){
+			inputPortalPosition.setX(portals.get(0).getCenterX());
+			inputPortalPosition.setY(portals.get(0).getCenterY());
+			outputPortalPosition.setX(portals.get(1).getCenterX());
+			outputPortalPosition.setY(portals.get(1).getCenterY());
+		}
+		
+		Vector distanceFromInputPortal = new Vector();
+		Vector distanceFromOutputPortal = new Vector();
+		
+		distanceFromInputPortal.equals(inputPortalPosition);
+		distanceFromInputPortal.sub(this.getPosition()); // included " this. " for readability
+		
+		distanceFromOutputPortal.equals(outputPortalPosition);
+		distanceFromOutputPortal.sub(this.getPosition()); // included " this. " for readability
+		
+		if(distanceFromInputPortal.getMagnitude() < 150 && distanceFromInputPortal.getMagnitude() > 10){
+			portalVector.equals(inputPortalPosition);
+			portalVector.sub(position);
+			portalVector.scale(10.0);
+		} else if (distanceFromInputPortal.getMagnitude() < 10){
+			this.setPosition(outputPortalPosition);
+		}
+		
+		if(distanceFromOutputPortal.getMagnitude() < portals.get(1).getHeight()){
+			portalVector.sub(distanceFromOutputPortal);
+		}
+		
+		return portalVector;
+	}
+	
+   private Vector fleePredator(List<? extends DynamicBoid> predators) {
+		Vector fleePredatorVector = new Vector();
+		Vector distanceApart = new Vector();
+		
+		synchronized (predators){
+			for (DynamicBoid predator : predators) {
+				distanceApart.equals(predator.getPosition());
+				distanceApart.sub(this.getPosition()); // included " this. " for readability
+				
+				if(distanceApart.getMagnitude() < 80) {
+					fleePredatorVector.sub(distanceApart);
+				}
+			}
+		}
+		
+		fleePredatorVector.scale(20.0);
+		
+		return fleePredatorVector;
 	}
 
 	public void setAlignment(double alignment) {

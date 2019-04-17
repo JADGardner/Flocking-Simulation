@@ -3,8 +3,11 @@ package drawing;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 
 import java.util.Collections;
@@ -80,21 +83,26 @@ public class Canvas extends JPanel {
 						line.getEndPoint().getX(), line.getEndPoint().getY()));
 			}
 		}
+		
+		synchronized (shapes) {
+			for (Shape shape : shapes) {
+				g2.draw(shape);
+			}
+		}
+		
 	}
 	
 	
 	public void addShape(Shape shape) {
 		synchronized (shape) {
 			shapes.add(shape);
-		    repaint();
 		}
 	}
 	
-	public void removeMostRecentShape() {
+	public void removeShapes() {
 		synchronized (shapes) {
-			shapes.remove(shapes.size() - 1);
+			shapes.clear();
 		}
-		repaint();
 	}
 
 	/**
@@ -109,7 +117,6 @@ public class Canvas extends JPanel {
 		synchronized (lines) {
 			lines.add(new LineSegment(startPoint, endPoint));
 		}
-		repaint();
 	}
 
 	/**
@@ -122,7 +129,6 @@ public class Canvas extends JPanel {
 		synchronized (lines) {
 			lines.add(lineSegment);
 		}
-		repaint();
 	}
 
 	/**
@@ -137,7 +143,6 @@ public class Canvas extends JPanel {
 				lines.add(thisLineSegment);
 			}
 		}
-		repaint();
 	}
 
 	/**
@@ -147,7 +152,6 @@ public class Canvas extends JPanel {
 		synchronized (lines) {
 			lines.remove(lines.size() - 1);
 		}
-		repaint();
 	}
 
 	/**
@@ -156,7 +160,8 @@ public class Canvas extends JPanel {
 	public void clear() {
 		synchronized (lines) {
 			lines.clear();
+			shapes.clear();
 		}
-		repaint();
 	}
+	
 }

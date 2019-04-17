@@ -38,11 +38,13 @@ public class GUI {
 	
 	int size;
 	int numberOfBoids;
+	int numberOfPredators;
 	
 	public GUI(FlockingSimulator FS) {
 		frame = new JFrame();
 		frame.setTitle("Flocking Simulation");
 		this.numberOfBoids = FS.getNumberOfBoids();
+		this.numberOfPredators = FS.getNumberOfPredators();
 		
 		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 		size = (int) (0.5*screenDimension.getWidth());
@@ -76,5 +78,11 @@ public class GUI {
 	public Canvas getCanvas() {
 		return canvas;
 	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	
 
 }
