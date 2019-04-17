@@ -66,15 +66,4 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 			
 		return chaceBoid;
 	}
-	
-	
-	/*
-	 * Predator is going to chase the nearest boid
-	 * will group with other predators but will individually 
-	 * break off??
-	 * 
-	 * has a sine wave wiggle to it's movement
-	 * is larger and a separate colour to the prey
-	 * */
-
 }

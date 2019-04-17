@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -33,6 +34,10 @@ public class LowerPanel extends JPanel {
 	
 	public LowerPanel(GUI g){
 		
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setMinimumSize(new Dimension(g.getCanvas().getWidth(), (int) (0.0654*g.size)));
+		setMaximumSize(new Dimension(g.getCanvas().getWidth(), (int) (0.0654*g.size)));
+		
 		plusIcon = new ImageIcon("plus.png");
 		plusIcon = Utils.scaleImageIcon(plusIcon, (int) (0.0654*g.size));
 		
@@ -46,8 +51,7 @@ public class LowerPanel extends JPanel {
 		add(westPanel, BorderLayout.WEST);
 		add(eastPanel, BorderLayout.EAST);
 		
-		setMinimumSize(new Dimension(g.size, (int) (0.0654*g.size)));
-		setMaximumSize(new Dimension(g.size, (int) (0.0654*g.size)));
+
 		setBackground(Color.white);
 
 	}
@@ -85,9 +89,9 @@ public class LowerPanel extends JPanel {
 		removeBoidButton.setToolTipText("Remove a boid"); // show a message 
 		
 		westPanel.add(boidCounter, BorderLayout.WEST);
-		westPanel.add(addBoidButton, BorderLayout.CENTER);
+		westPanel.add(addBoidButton, BorderLayout.WEST);
 		//westPanel.add(restartButton, BorderLayout.CENTER);
-		westPanel.add(removeBoidButton, BorderLayout.CENTER);
+		westPanel.add(removeBoidButton, BorderLayout.WEST);
 		
 		return westPanel;
 	}
@@ -114,9 +118,9 @@ public class LowerPanel extends JPanel {
 		removePredatorButton.setIcon(subtractIcon);
 		removePredatorButton.setToolTipText("Remove a predator"); // show a message 
 		
-		eastPanel.add(predatorCounter, BorderLayout.WEST);
-		eastPanel.add(addPredatorButton, BorderLayout.CENTER);
-		eastPanel.add(removePredatorButton, BorderLayout.CENTER);
+		eastPanel.add(predatorCounter, BorderLayout.EAST);
+		eastPanel.add(addPredatorButton, BorderLayout.EAST);
+		eastPanel.add(removePredatorButton, BorderLayout.EAST);
 		
 		return eastPanel;
 	

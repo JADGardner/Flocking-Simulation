@@ -31,7 +31,7 @@ public class FlockingSimulator {
 	private List<Portal> portals;
 	private List<Wall> walls;
 	
-	private int numberOfBoids = 1000;
+	private int numberOfBoids = 500;
 	private int numberOfPredators = 0;
 	private int boidSize = 10;
 	private int predatorSize = 20;
