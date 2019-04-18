@@ -11,11 +11,11 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	protected int perceptionRadius = 100;
 	protected double seperationRadius = 20;
 
-	protected double alignmentConstant = 0.120; //0.125
+	protected double alignmentConstant = 0.120;
 	protected double cohesionConstant = 0.01;
 	protected double seperationConstant = 1;
 	protected double avoidMouseConstant = 100;
-	protected double tendToPlaceConstant = 0.01;
+	protected double windEffectConstant = 0.01;
 
 	protected Vector cohesionVector = new Vector();
 	protected Vector seperationVector = new Vector();
@@ -27,6 +27,7 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	protected boolean boundryOn = true;
 	protected boolean mouseAvoidOn = true;
 	protected boolean portalVector = false;
+	private boolean windOn = false;
 
 
 	// Constructor
@@ -71,6 +72,10 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 
 		if(mouseAvoidOn) {
 			velocity.add(avoidMouseVector);
+		}
+		
+		if(windOn) {
+			velocity.add(windVector(maxX, maxY));
 		}
 		
 		velocity.add(portalVector);
@@ -181,14 +186,19 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		return avoidMouseVector;
 	}
 
-	private Vector tendToPlace(Vector location) {
-		Vector attractionVector = new Vector();
+	private Vector windVector(int width, int height) {
+		Vector windVector = new Vector();
+		Vector adjustedPositionVector = new Vector();
+		
+		adjustedPositionVector.setX(position.getX() - 0.5*width);
+		adjustedPositionVector.setY(position.getY() - 0.5*height);
+		
+		windVector.setY(-adjustedPositionVector.getX());
+		windVector.setX(adjustedPositionVector.getY());
+		
+		windVector.scale(10/adjustedPositionVector.getMagnitude());
 
-		attractionVector.equals(location);
-		attractionVector.sub(position);
-		attractionVector.scale(tendToPlaceConstant);
-
-		return attractionVector;
+		return windVector;
 	}
 	
 	protected Vector portalVector(List<Portal> portals){
@@ -302,7 +312,7 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	public boolean isSeperationOn() {
 		return seperationOn;
 	}
-
+	
 	public void setSeperationOn(boolean seperationOn) {
 		this.seperationOn = seperationOn;
 	}
@@ -318,5 +328,10 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	public void setMouseAvoidOn(boolean mouseAvoidOn) {
 		this.mouseAvoidOn = mouseAvoidOn;
 	}
+
+	public void setWindOn() {
+		windOn = !windOn;
+	}
+	
 	
 }

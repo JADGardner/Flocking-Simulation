@@ -2,12 +2,10 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import tools.Utils;
@@ -28,6 +26,11 @@ public class SidePanel extends JPanel {
 	JButton addVortexButton;
 	JButton addWindButton;
 	JButton infoButton;
+	
+	ButtonPanel wallButtonPanel; 
+	ButtonPanel vortexButtonPanel;
+	ButtonPanel windButtonPanel;
+	ButtonPanel infoPanel;
 
 	public SidePanel(GUI g){
 		setPreferredSize(new Dimension((int) (0.374*g.size), g.size));
@@ -89,28 +92,28 @@ public class SidePanel extends JPanel {
 		infoButton.setIcon(infoIcon);
 		infoButton.setToolTipText("Info");
 				
-		JPanel addWallPanel = buttonPanel("Add Walls ", addWallButton);
-		JPanel addVotexPanel = buttonPanel("Add Vortex ", addVortexButton);
-		JPanel addWindPanel = buttonPanel("Add Wind ", addWindButton);
-		JPanel addInfoanel = buttonPanel("", infoButton);
+		wallButtonPanel = new ButtonPanel("Add Walls ", addWallButton);
+		vortexButtonPanel = new ButtonPanel("Add Vortex ", addVortexButton);
+		windButtonPanel = new ButtonPanel("Turn Wind On ", addWindButton);
+		infoPanel = new ButtonPanel("", infoButton);
 		
-		add(addWallPanel);
-		add(addVotexPanel);
-		add(addWindPanel);
-		add(addInfoanel);
+		add(wallButtonPanel);
+		add(vortexButtonPanel);
+		add(windButtonPanel);
+		add(infoPanel);
 	}
+
+	public ButtonPanel getWallButtonPanel() {
+		return wallButtonPanel;
+	}
+
+	public ButtonPanel getVortexButtonPanel() {
+		return vortexButtonPanel;
+	}
+
+	public ButtonPanel getWindButtonPanel() {
+		return windButtonPanel;
+	}
+
 	
-	private JPanel buttonPanel(String labelName, JButton button) {
-		JPanel buttonPanel = new JPanel();
-		JLabel wallLabel = new JLabel(labelName);
-		wallLabel.setBackground(Color.white);
-		wallLabel.setBorder(null);
-		wallLabel.setFont(new Font("Segoe UI", Font.PLAIN, 40));
-		buttonPanel.add(wallLabel);
-		buttonPanel.add(button);
-		buttonPanel.setBackground(Color.white);
-		buttonPanel.setMinimumSize(new Dimension(350, 110));
-		buttonPanel.setMaximumSize(new Dimension(350, 110));
-		return buttonPanel;
-	}
 }

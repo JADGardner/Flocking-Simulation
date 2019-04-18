@@ -24,6 +24,7 @@ public class ActionListeners {
 	private List<Portal> portals;
 	private List<Wall> walls; 
 	private int wallButtonPressCount = 0;
+	private boolean windState = false;
 	
 	public ActionListeners(FlockingSimulator FS){
 		
@@ -229,6 +230,7 @@ public class ActionListeners {
 			public void actionPerformed(ActionEvent e) {
 				synchronized (portals){
 					if(portals.size() == 0){
+						sp.getVortexButtonPanel().getButtonLabel().setText("Remove Vortex ");
 						int x = Utils.randomInt(gui.getCanvas().getWidth());
 						int y = Utils.randomInt(gui.getCanvas().getHeight());
 						portals.add(new Portal(x, y));
@@ -236,6 +238,7 @@ public class ActionListeners {
 						y = Utils.randomInt(gui.getCanvas().getHeight());
 						portals.add(new Portal(x, y));
 					} else {
+						sp.getVortexButtonPanel().getButtonLabel().setText("Add Vortex ");
 						portals.remove(portals.size() - 1);
 						portals.remove(portals.size() - 1);
 						g.getCanvas().removePortals();
@@ -250,17 +253,20 @@ public class ActionListeners {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch (wallButtonPressCount) {
-		            case 0:  
-		            	FS.setWallPlace();
+		            case 0:
 		            	wallButtonPressCount++;
+		            	FS.setWallPlace();
+		            	sp.getWallButtonPanel().getButtonLabel().setText("Stop Walls ");
 		            	break;
 		            	
 		            case 1:
-		            	FS.setWallPlace();
 		            	wallButtonPressCount++;
+		            	FS.setWallPlace();
+		            	sp.getWallButtonPanel().getButtonLabel().setText("Clear Walls ");		            	
 		                break;
 		            case 2:
 		            	wallButtonPressCount = 0;
+		            	sp.getWallButtonPanel().getButtonLabel().setText("Add Walls ");		            	
 		            	walls.clear();
 		            	g.getCanvas().removeWalls();
 		                break;
@@ -268,6 +274,31 @@ public class ActionListeners {
 			}
 		});
 		
+		sp.addWindButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				synchronized (boids){
+					for(IntelligentBoid intelligentBoid : boids) {
+						intelligentBoid.setWindOn();
+					}
+				}
+				synchronized (predators){
+					for(Predator predator : predators) {
+						predator.setWindOn();
+					}
+				}
+				
+				if(!windState) {
+					sp.getWindButtonPanel().getButtonLabel().setText("Turn Wind Off ");
+				} else {
+					sp.getWindButtonPanel().getButtonLabel().setText("Turn Wind On ");
+				}
+				
+				windState = !windState;
+			}
+		});
 		
 	}
 	

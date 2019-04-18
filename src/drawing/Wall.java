@@ -8,18 +8,18 @@ public class Wall extends Rectangle2D.Double {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	public Wall(){
 		super();
-		height = 10;
-		width = 10;
+		height = 50;
+		width = 50;
 		// TODO Auto-generated constructor stub
 	}
 	
 	public Wall(int xPos, int yPos){
 		super();
-		height = 10;
-		width = 10;
+		height = 50;
+		width = 50;
 		x = xPos;
 		y = yPos;
 		// TODO Auto-generated constructor stub
