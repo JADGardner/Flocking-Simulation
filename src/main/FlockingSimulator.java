@@ -38,8 +38,8 @@ import gui.GUI;
 import tools.Utils;
 
 /**
- * This Class represents a FlockingSimulator Object which builds 
- * the required Classes for the program to run and contains the 
+ * This Class represents a FlockingSimulator Object which initialises 
+ * the required objects for the program to run and contains the 
  * main game loop. 
  * 
  * @author Y3843317
@@ -50,9 +50,10 @@ public class FlockingSimulator {
 	private GUI gui;
 	
 	@SuppressWarnings("unused")	
-	/* Without this a warning stating the
+	/* Without this, a warning stating the
 	 * actionListeners Class was unused. 
-	 * This is not the case. */
+	 * This is not the case when the program
+	 * is running. */
 	private ActionListeners actionListeners;
 	
 	/* Lists to contain the main game objects. */
@@ -78,7 +79,7 @@ public class FlockingSimulator {
 
 	/**
 	 * Initialises all the necessary objects needed for the 
-	 * program to run. Makes calls to all set-up fucntions 
+	 * program to run. Makes calls to all set-up methods 
 	 * and then starts the game loop.
 	 */
 	public FlockingSimulator(){
