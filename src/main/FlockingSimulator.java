@@ -1,5 +1,5 @@
 /*
- * FlockingSimulator.java 			18/04/2019
+ * FlockingSimulator.java				18/04/2019
  * Version: 1.0
  * Programmer: Y3843317
  * Company: University of York
@@ -8,8 +8,8 @@
  * of the popular Craig Reynolds program Boids. 
  * It is designed demonstrate how complex animal
  * flocking like behaviour can arise from a small
- * set of simple rules. It also serves as the 
- * main entry to the program.
+ * set of simple rules. This contains the main 
+ * entry to the program.
  * 
  */
 
@@ -38,8 +38,8 @@ import gui.GUI;
 import tools.Utils;
 
 /**
- * The FlockingSimulator Class builds the required
- * Classes for the program to run and contains the 
+ * This Class represents a FlockingSimulator Object which builds 
+ * the required Classes for the program to run and contains the 
  * main game loop. 
  * 
  * @author Y3843317
@@ -88,7 +88,9 @@ public class FlockingSimulator {
 		
 		setUpBoids();
 		
-		/* Creating empty lists, these are filled by the user in game. */
+		/* Creating empty lists, these are filled by the user in game. 
+		 * These collection are synchronised to deal with the issue of
+         * concurrent accesses to the collection. */
 		predators = Collections.synchronizedList(new ArrayList<Predator>());
 		portals = Collections.synchronizedList(new ArrayList<Portal>());
 		walls = Collections.synchronizedList(new ArrayList<Wall>());
@@ -186,7 +188,9 @@ public class FlockingSimulator {
 			 * of the boids. */
 			Point mousePoint = MouseInfo.getPointerInfo().getLocation();
 			SwingUtilities.convertPointFromScreen(mousePoint, gui.getCanvas());
-
+			
+			/* The next two sections is updating the position of both the boids
+			 * and predators based on the previous frames information. */
 			synchronized (boids){
 				for (IntelligentBoid intelligentBoid : boids) {
 					intelligentBoid.calculateVelocity(boids, predators, walls, portals, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
@@ -201,8 +205,11 @@ public class FlockingSimulator {
 				}
 			}
 			
+			/* The Canvas is cleared of all objects. */
 			gui.getCanvas().clear();
 			
+			/* All necessary objects are added to the 
+			 * Canvas. */
 			synchronized (portals){
 				for (Portal portal : portals) {
 					gui.getCanvas().addPortal(portal);
@@ -227,6 +234,8 @@ public class FlockingSimulator {
 				}
 			}
 			
+			/* The Canvas is told to repaint all the 
+			 * new objects. */
 			gui.getCanvas().repaint();
 			
 			Utils.pause(deltaTime);
@@ -273,7 +282,8 @@ public class FlockingSimulator {
 	public void setWallPlace() {
 		wallPlace = !wallPlace;
 	}
-
+	
+	/* This is the entry point to the program. */
 	public static void main(String[] args) {
 		new FlockingSimulator();
 	}

@@ -100,7 +100,7 @@ public class SidePanel extends JPanel {
 		add(wallButtonPanel);
 		add(vortexButtonPanel);
 		add(windButtonPanel);
-		add(infoPanel);
+		//add(infoPanel);
 	}
 
 	public ButtonPanel getWallButtonPanel() {

@@ -1,6 +1,21 @@
+/**
+ * LineSegment.java 				18/04/2019
+ * Version: 1.0
+ * Programmers: Y3843317
+ * Company: University of York
+ * 
+ */
+
 package geometry;
 
-
+/**
+ * A Vector is an extension of the CartesianCoordiante
+ * Class. It provides an easier and simplified interface 
+ * for performing many standard vector operations. 
+ * 
+ * @author Y3843317
+ *
+ */
 public class Vector extends CartesianCoordinate {
 
 	public Vector(){
@@ -11,12 +26,14 @@ public class Vector extends CartesianCoordinate {
 		super(xValue, yValue);
 	}
 	
+	/* Uses the Pythagorean Theorem to return the 
+	 * size of the Vector. */
 	public double getMagnitude(){
-		
 		return Math.sqrt(xValue*xValue + yValue*yValue);
-		
 	}
 	
+	/* atan2 is used to account for which quadrant 
+	 * of the Cartesian plane the vector is in. */
 	public double getAngle(){
 		return Math.atan2(yValue, xValue);
 	}
@@ -32,6 +49,7 @@ public class Vector extends CartesianCoordinate {
 		yValue = yValue - v.getY();
 	}
 	
+	
 	public void equals(Vector v) {
 		xValue = v.getX();
 		yValue = v.getY();
@@ -42,6 +60,10 @@ public class Vector extends CartesianCoordinate {
 		yValue = yValue*scalingFactor;
 	}
 	
+	/* To set a Vectors magnitude but maintain its 
+	 * direction. Divide by its current magnitude 
+	 * to make it a unit Vector and then multiply 
+	 * by the desired length.*/
 	public void setMagnitude(double magnitude) {
 		xValue = (xValue/getMagnitude()) * magnitude;
 		yValue = (yValue/getMagnitude()) * magnitude;

@@ -21,7 +21,7 @@ public class ButtonPanel extends JPanel{
 		buttonLabel = new JLabel(labelName);
 		buttonLabel.setBackground(Color.white);
 		buttonLabel.setBorder(null);
-		buttonLabel.setFont(new Font("Segoe UI", Font.PLAIN, 35));
+		buttonLabel.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		add(buttonLabel);
 		add(button);
 		setBackground(Color.white);

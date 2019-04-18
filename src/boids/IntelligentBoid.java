@@ -1,3 +1,11 @@
+/*
+ * IntelligentBoid.java				18/04/2019
+ * Version: 1.0
+ * Programmer: Y3843317
+ * Company: University of York
+ * 
+ */
+
 package boids;
 import java.awt.Point;
 import java.util.List;

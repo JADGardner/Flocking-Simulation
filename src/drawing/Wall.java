@@ -1,7 +1,22 @@
+/*
+ * Wall.java				18/04/2019
+ * Version: 1.0
+ * Programmer: Y3843317
+ * Company: University of York
+ * 
+ */
+
 package drawing;
 
 import java.awt.geom.Rectangle2D;
 
+/**
+ * This Class represents a Wall Object that is a square 
+ * of size 50 that can have its x and y position set.
+ * 
+ * @author Y3843317
+ *
+ */
 public class Wall extends Rectangle2D.Double {
 
 	/**
@@ -13,7 +28,6 @@ public class Wall extends Rectangle2D.Double {
 		super();
 		height = 50;
 		width = 50;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Wall(int xPos, int yPos){
@@ -22,7 +36,6 @@ public class Wall extends Rectangle2D.Double {
 		width = 50;
 		x = xPos;
 		y = yPos;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void setXPosition(double xPosition){

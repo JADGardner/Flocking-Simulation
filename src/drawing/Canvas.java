@@ -1,3 +1,11 @@
+/*
+ * Canvas.java				18/04/2019
+ * Version: 1.0
+ * Programmers: Electronics Department University of York, Y3843317
+ * Company: University of York
+ * 
+ */
+
 package drawing;
 
 import java.awt.BasicStroke;
@@ -18,11 +26,15 @@ import geometry.LineSegment;
 
 /**
  * <h2>Canvas</h2> This class represents a canvas object that can be drawn to
- * with various line segments.
+ * with various line segments, portals and wall objects.
  * 
- * <P>The list of LineSegment's is stored in a collection within the implementation
- * of the class. This collection is now synchronised to deal with the issue of
- * concurrent accesses to the collection.
+ * <P>The list of LineSegments, Portals and Walls are stored in a collection within 
+ * the implementation of the class. This collection is now synchronised to deal 
+ * with the issue of concurrent accesses to the collection.
+ * 
+ * <P>Repaints have now been removed from all methods to reduce flicker that 
+ * was occurring with the high number of calls to drawLineSegment. Everything
+ * is now drawn at the end of a loop using Canvas.repaint()
  */
 public class Canvas extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -98,25 +110,38 @@ public class Canvas extends JPanel {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param shape The shape to draw.
+	 */
 	public void addPortal(Shape shape) {
 		synchronized (shape) {
 			portals.add(shape);
 		}
 	}
 	
+	/**
+	 * Clear the full list of Portals.
+	 */
 	public void removePortals() {
 		synchronized (portals) {
 			portals.clear();
 		}
 	}
 	
+	/**
+	 * 
+	 * @param shape The shape to draw.
+	 */
 	public void addWall(Shape shape) {
 		synchronized (walls) {
 			walls.add(shape);
 		}
 	}
 	
+	/**
+	 * Clear the full list of Walls.
+	 */
 	public void removeWalls() {
 		synchronized (walls) {
 			walls.clear();
