@@ -37,6 +37,7 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 		velocity.add(portalVector);
 		velocity.add(boundaryVector(maxX, maxY));
 		velocity.add(chaceBoid(otherBoids));
+		velocity.add(avoidWalls(walls));
 		
 		if(velocity.getMagnitude() > maxSpeed+50) {
 			velocity.setMagnitude(maxSpeed+50);

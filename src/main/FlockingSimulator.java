@@ -3,9 +3,6 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,8 +45,8 @@ public class FlockingSimulator {
 		mouseListnerSetUp();
 		
 		setUpBoids();
-		setUpPredators();
 		
+		predators = Collections.synchronizedList(new ArrayList<Predator>());
 		portals = Collections.synchronizedList(new ArrayList<Portal>());
 		walls = Collections.synchronizedList(new ArrayList<Wall>());
 		
@@ -58,9 +55,6 @@ public class FlockingSimulator {
 		gameLoop();
 	}
 	
-	private void setUpPredators(){
-		predators = Collections.synchronizedList(new ArrayList<Predator>());
-	}
 	
 	private void mouseListnerSetUp(){
 		gui.getFrame().addMouseListener(new MouseAdapter() {
@@ -74,6 +68,7 @@ public class FlockingSimulator {
 			}
 		});
 	}
+	
 	
 	private void setUpBoids(){
 
@@ -158,17 +153,15 @@ public class FlockingSimulator {
 			}
 			
 			gui.getCanvas().repaint();
+			
 			Utils.pause(deltaTime);
 
 		}
 	}
 	
-	
-
 	public List<IntelligentBoid> getBoids() {
 		return boids;
 	}
-	
 
 	public List<Predator> getPredators() {
 		return predators;
@@ -176,6 +169,10 @@ public class FlockingSimulator {
 
 	public List<Portal> getPortals() {
 		return portals;
+	}
+	
+	public List<Wall> getWalls() {
+		return walls;
 	}
 
 	public GUI getGUI(){
@@ -186,7 +183,6 @@ public class FlockingSimulator {
 		return numberOfBoids;
 	}
 	
-
 	public int getNumberOfPredators() {
 		return numberOfPredators;
 	}
@@ -205,9 +201,6 @@ public class FlockingSimulator {
 
 	public static void main(String[] args) {
 		new FlockingSimulator();
-
 	}
-	
-	
 
 }

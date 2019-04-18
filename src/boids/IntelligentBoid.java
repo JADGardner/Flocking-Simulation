@@ -53,7 +53,6 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 			portalVector = portalVector(portals);
 		}
 
-
 		if(cohesionOn) {
 			velocity.add(cohesionVector);
 		}
@@ -251,6 +250,24 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
    
    protected Vector avoidWalls(List<Wall> walls) {
 	   Vector avoidWallsVector = new Vector();
+	   Vector wallPositionVector = new Vector();
+	   Vector distanceApart = new Vector();
+		
+	   synchronized (walls){
+		   for (Wall wall : walls) {
+			   wallPositionVector.setX(wall.getCenterX());
+			   wallPositionVector.setY(wall.getCenterY());
+			   distanceApart.equals(wallPositionVector);
+			   distanceApart.sub(this.getPosition()); // included " this. " for readability
+				
+			   if(distanceApart.getMagnitude() < wall.getWidth()) {
+				   avoidWallsVector.sub(distanceApart);
+			   }
+			}
+		}
+		
+	   avoidWallsVector.scale(20.0);
+	   
 	   return avoidWallsVector;
    }
 
@@ -301,9 +318,5 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	public void setMouseAvoidOn(boolean mouseAvoidOn) {
 		this.mouseAvoidOn = mouseAvoidOn;
 	}
-
-
-
-
-
+	
 }

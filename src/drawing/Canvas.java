@@ -3,11 +3,8 @@ package drawing;
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 
 import java.util.Collections;
@@ -108,7 +105,7 @@ public class Canvas extends JPanel {
 		}
 	}
 	
-	public void removePortal() {
+	public void removePortals() {
 		synchronized (portals) {
 			portals.clear();
 		}
@@ -120,7 +117,7 @@ public class Canvas extends JPanel {
 		}
 	}
 	
-	public void removeWall() {
+	public void removeWalls() {
 		synchronized (walls) {
 			walls.clear();
 		}

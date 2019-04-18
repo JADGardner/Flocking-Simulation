@@ -10,18 +10,20 @@ import javax.swing.event.ChangeListener;
 import boids.IntelligentBoid;
 import boids.Predator;
 import drawing.Portal;
+import drawing.Wall;
 import main.FlockingSimulator;
 import tools.Utils;
 
 public class ActionListeners {
 
-	GUI gui;
-	SidePanel sidePanel;
-	LowerPanel lowerPanel;
-	List<IntelligentBoid> boids;
+	private GUI gui;
+	private SidePanel sidePanel;
+	private LowerPanel lowerPanel;
+	private List<IntelligentBoid> boids;
 	private List<Predator> predators;
-	List<Portal> portals;
-	int wallButtonPressCount = 0;
+	private List<Portal> portals;
+	private List<Wall> walls; 
+	private int wallButtonPressCount = 0;
 	
 	public ActionListeners(FlockingSimulator FS){
 		
@@ -31,6 +33,7 @@ public class ActionListeners {
 		boids = FS.getBoids();
 		predators = FS.getPredators();
 		portals = FS.getPortals();
+		walls = FS.getWalls();
 		
 		sidePanelActionListeners(FS, gui, sidePanel);
 		lowePanelActionListeners(FS, gui, lowerPanel);
@@ -235,7 +238,7 @@ public class ActionListeners {
 					} else {
 						portals.remove(portals.size() - 1);
 						portals.remove(portals.size() - 1);
-						g.getCanvas().removePortal();
+						g.getCanvas().removePortals();
 					}
 					
 				}
@@ -246,8 +249,22 @@ public class ActionListeners {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				FS.setWallPlace();
-				wallButtonPressCount++;
+				switch (wallButtonPressCount) {
+		            case 0:  
+		            	FS.setWallPlace();
+		            	wallButtonPressCount++;
+		            	break;
+		            	
+		            case 1:
+		            	FS.setWallPlace();
+		            	wallButtonPressCount++;
+		                break;
+		            case 2:
+		            	wallButtonPressCount = 0;
+		            	walls.clear();
+		            	g.getCanvas().removeWalls();
+		                break;
+				}
 			}
 		});
 		
