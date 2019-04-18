@@ -251,11 +251,26 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	}
 	
 
+	/**
+	 * This returns a velocity Vector pushing the Boid
+	 * back onto the screen.
+	 * 
+	 * @param maxX The width of the canvas.
+	 * @param maxY The height of the canvas.
+	 * @return A velocity Vector.
+	 */
 	protected Vector boundaryVector(int maxX, int maxY) {
+		
+		/* The control variables.*/
 		int scale = 20;
 		double scalingFactor = 0.5;
+		
 		Vector bounaryVector = new Vector();
 
+		/* If the Boids current position is less than
+		 * zero keep adding a velocity Vector of size
+		 * scale to its velocity. This will slowly and 
+		 * smoothly push it back on screen. */
 		if(position.getX() < 0){
 			bounaryVector.setX(scale);
 		}
@@ -274,33 +289,55 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 
 		bounaryVector.scale(scalingFactor);
 		return bounaryVector;
-
 	}
 
+	/**
+	 * This returns a velocity Vector pushing the Boid
+	 * away from the tip of the users mouse. 
+	 * 
+	 * @param mousePoint A Point object that contains the location of the mouse.
+	 * @return A velocity Vector.
+	 */
 	private Vector avoidMouse(Point mousePoint) {
 		Vector distance = new Vector();
 		Vector avoidMouseVector = new Vector();
 
+		/* Create a Vector object out of the mousePoint Point object. */
 		Vector mousePointVector = new Vector(mousePoint.getX(), mousePoint.getY());
 
+		/* Get the distance between the Boid and the mouse pointer. */
 		distance.equals(mousePointVector);
 		distance.sub(this.getPosition());
 
+		/* If the mouse is too close to the Boid move with a velocity
+		 * in the opposite direction. */
 		if(distance.getMagnitude() < avoidMouseConstant) {
 			avoidMouseVector.sub(distance);
 		}
 
-
 		return avoidMouseVector;
 	}
 
+	/**
+	 * This returns a velocity Vector pushing the Boid
+	 * around in a circle anti-clockwise. 
+	 * 
+	 * @param width The width of the canvas.
+	 * @param height The height of the canvas.
+	 * @return A velocity Vector.
+	 */
 	private Vector windVector(int width, int height) {
 		Vector windVector = new Vector();
 		Vector adjustedPositionVector = new Vector();
 		
+		/* adjustedPositionVector creates a new set of axis with 
+		 * the origin in the middle of the canvas. */
 		adjustedPositionVector.setX(position.getX() - 0.5*width);
 		adjustedPositionVector.setY(position.getY() - 0.5*height);
 		
+		/* As the Boid moves to the around moves away from the origin 
+		 * in the x direction the velocity in the y direction increases 
+		 * and vis-versa. */
 		windVector.setY(-adjustedPositionVector.getX());
 		windVector.setX(adjustedPositionVector.getY());
 		
@@ -309,19 +346,35 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		return windVector;
 	}
 	
+	/**
+	 * This returns a velocity Vector either sucking 
+	 * in a Boid into portals(0) or away from portals(1).
+	 * This can only handle a list of two Portals.
+	 * 
+	 * @param portals A list of Portal objects.
+	 * @return A velocity Vector.
+	 */
 	protected Vector portalVector(List<Portal> portals){
 		Vector portalVector = new Vector();
 		
+		/* Initialising and setting the position Vectors for
+		 * both Portals. */
 		Vector inputPortalPosition = new Vector();
 		Vector outputPortalPosition = new Vector();
+		
+		int inputPortalStrength = 150;
+		int inputPortalCentre = 10;
 		
 		synchronized (portals){
 			inputPortalPosition.setX(portals.get(0).getCenterX());
 			inputPortalPosition.setY(portals.get(0).getCenterY());
+			
 			outputPortalPosition.setX(portals.get(1).getCenterX());
 			outputPortalPosition.setY(portals.get(1).getCenterY());
 		}
 		
+		/* Calculating distance from input and output portals relative 
+		 * to Boids current position. */
 		Vector distanceFromInputPortal = new Vector();
 		Vector distanceFromOutputPortal = new Vector();
 		
@@ -331,7 +384,12 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		distanceFromOutputPortal.equals(outputPortalPosition);
 		distanceFromOutputPortal.sub(this.getPosition());
 		
-		if(distanceFromInputPortal.getMagnitude() < 150 && distanceFromInputPortal.getMagnitude() > 10){
+		
+		/* If the distance away from the input portal is less than inputPortalStrength then create a 
+		 * velocity Vector that pulls the Boid towards the centre of the Portal. 
+		 * If the Boid is at the centre then set its current position to be 
+		 * the centre of the output portal. */
+		if(distanceFromInputPortal.getMagnitude() < inputPortalStrength && distanceFromInputPortal.getMagnitude() > inputPortalCentre){
 			portalVector.equals(inputPortalPosition);
 			portalVector.sub(position);
 			portalVector.scale(10.0);
@@ -339,6 +397,8 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 			this.setPosition(outputPortalPosition);
 		}
 		
+		/* If the distance away from the output portal is less than twice the 
+		 * radius of the portal then push the Boid away from the portal.  */
 		if(distanceFromOutputPortal.getMagnitude() < portals.get(1).getHeight()){
 			portalVector.sub(distanceFromOutputPortal);
 		}
@@ -346,48 +406,79 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		return portalVector;
 	}
 	
-   private Vector fleePredator(List<? extends DynamicBoid> predators) {
+	/**
+	 * This returns a velocity Vector pushing the Boid
+	 * away from nearby predators. 
+	 * 
+	 * @param predators
+	 * @return A velocity Vector.
+	 */
+    private Vector fleePredator(List<? extends DynamicBoid> predators) {
 		Vector fleePredatorVector = new Vector();
 		Vector distanceApart = new Vector();
 		
+		int predatorPerceptionRadius = 80;
+		double predatorScalingFactor = 20.0;
+		
 		synchronized (predators){
+			/* For all the predators calculate the distance away from
+			 * this Boid. */
 			for (DynamicBoid predator : predators) {
 				distanceApart.equals(predator.getPosition());
 				distanceApart.sub(this.getPosition());
 				
-				if(distanceApart.getMagnitude() < 80) {
+				/* If that distance is less than predatorPerceptionRadius then move 
+				 * away in the other direction. */
+				if(distanceApart.getMagnitude() < predatorPerceptionRadius) {
 					fleePredatorVector.sub(distanceApart);
 				}
 			}
 		}
 		
-		fleePredatorVector.scale(20.0);
+		
+		fleePredatorVector.scale(predatorScalingFactor);
 		
 		return fleePredatorVector;
 	}
    
-   protected Vector avoidWalls(List<Wall> walls) {
+    /**
+	 * This returns a velocity Vector pushing the Boid
+	 * away from Walls.
+	 * 
+     * @param walls A list of Wall objects.
+     * @return A velocity Vector.
+     */
+    protected Vector avoidWalls(List<Wall> walls) {
 	   Vector avoidWallsVector = new Vector();
 	   Vector wallPositionVector = new Vector();
 	   Vector distanceApart = new Vector();
+	   
+	   /* A high scaling factor means this has a very powerful
+	    * effect and the Boids don't end up inside a Wall. */
+	   double wallScalingFactor = 20.0;
 		
 	   synchronized (walls){
+		   /* For all the wall objects in walls, create a 
+		    * position Vector and calculate the distance away
+		    * from this Boid. */
 		   for (Wall wall : walls) {
 			   wallPositionVector.setX(wall.getCenterX());
 			   wallPositionVector.setY(wall.getCenterY());
 			   distanceApart.equals(wallPositionVector);
 			   distanceApart.sub(this.getPosition());
 				
+			   /* If the distance is less than the width of 
+			    * the wall then move away in the other direction. */
 			   if(distanceApart.getMagnitude() < wall.getWidth()) {
 				   avoidWallsVector.sub(distanceApart);
 			   }
 			}
 		}
 		
-	   avoidWallsVector.scale(20.0);
+	   avoidWallsVector.scale(wallScalingFactor);
 	   
 	   return avoidWallsVector;
-   }
+    }
 
 	public void setAlignment(double alignment) {
 		this.alignmentConstant = alignment;

@@ -61,7 +61,7 @@ public class FlockingSimulator {
 	private List<Portal> portals;
 	private List<Wall> walls;
 	
-	private int numberOfBoids = 500;
+	private int numberOfBoids = 800;
 	private int numberOfPredators = 0;
 	
 	/* This controls the lengths of the sides of 

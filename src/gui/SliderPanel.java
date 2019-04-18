@@ -15,7 +15,6 @@ import javax.swing.border.TitledBorder;
 import tools.Utils;
 
 
-
 public class SliderPanel extends JPanel {
 	
 	/**
