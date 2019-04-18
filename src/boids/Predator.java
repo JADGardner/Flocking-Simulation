@@ -23,7 +23,7 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 			List<? extends DynamicBoid> otherBoids, List<Wall> walls, 
 			List<Portal> portals, int maxX, int maxY, Point mousePoint) {
 	
-		cohesionSperationAlignment(friendlyBoids);
+		cohesionSeparationAlignment(friendlyBoids);
 		
 		Vector portalVector = new Vector();
 		

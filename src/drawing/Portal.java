@@ -24,12 +24,25 @@ public class Portal extends Ellipse2D.Double{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Default constructor, creates a Ellipse2D.Double 
+	 * perfectly round with radius 50 with Position 
+	 * 0, 0.
+	 */
 	public Portal(){
 		super();
 		height = 100;
 		width = 100;
 	}
 	
+	/**
+	 * Constructor, creates a Ellipse2D.Double 
+	 * perfectly round with radius 50 with Position 
+	 * xPos and yPos.
+	 * 
+	 * @param xPos X position of top left corner.
+	 * @param yPos Y position of top left corner.
+	 */
 	public Portal(int xPos, int yPos){
 		super();
 		height = 100;

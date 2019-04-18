@@ -23,6 +23,13 @@ public class CartesianCoordinate {
 	protected double xValue;
 	protected double yValue; 
 	
+	/**
+	 * Default constructor creates a CartesianCoordiante
+	 * at the specified doubles.
+	 * 
+	 * @param x The x coordinate.
+	 * @param y The y coordinate.
+	 */
 	public CartesianCoordinate(double x, double y){
 		xValue = x;
 		yValue = y;

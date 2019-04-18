@@ -22,6 +22,13 @@ public class LineSegment {
 	private CartesianCoordinate startPoint;
 	private CartesianCoordinate endPoint;
 	
+	/**
+	 * Default constructor for the LineSegment, creates a LineSegment from 
+	 * two CartesianCoordinates.
+	 * 
+	 * @param startPoint Start of line.
+	 * @param endPoint End of line.
+	 */
 	public LineSegment(CartesianCoordinate startPoint, CartesianCoordinate endPoint){
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;

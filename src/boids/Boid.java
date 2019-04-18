@@ -31,14 +31,29 @@ public class Boid {
 	
 	protected Vector position;
 
+	/**
+	 * Default constructor sets up values for Boid using Vector for position.
+	 * 
+	 * @param canvas A Canvas object the Boid will draw too.
+	 * @param position Vector location in 2D plane
+	 * @param size How big the boid will be
+	 */
 	public Boid(Canvas canvas, Vector position, int size) {
 		this.canvas = canvas;
 		this.position = position;
 		this.size = size;
 	}
 	
-	public Boid(Canvas myCanvas, double xPosition, double yPosition, int size){
-		this.canvas = myCanvas;
+	/**
+	 * Constructor sets up values for Boid using double for position.
+	 * 
+	 * @param canvas A Canvas object the Boid will draw too.
+	 * @param xPosition x value of location in 2D plane.
+	 * @param yPosition y value of location in 2D plane.
+	 * @param size How big the boid will be
+	 */
+	public Boid(Canvas canvas, double xPosition, double yPosition, int size){
+		this.canvas = canvas;
 		position = new Vector(xPosition, yPosition);
 		this.size = size;
 	}

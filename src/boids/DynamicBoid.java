@@ -21,20 +21,35 @@ import geometry.Vector;
  *
  */
 public class DynamicBoid extends Boid {
-	protected double MILLISECONDS_PER_SECOND = 1000;
+	private double MILLISECONDS_PER_SECOND = 1000;
 	
 	/* Max speed of boids in pixels per second. */
 	protected int maxSpeed = 200; 
 	protected Vector velocity;
 	
-	public DynamicBoid(Canvas myCanvas, Vector position, int size){
-		super(myCanvas, position, size);
+	/**
+	 * Default constructor sets up values for Boid using Vector for position.
+	 * 
+	 * @param canvas A Canvas object the Boid will draw too.
+	 * @param position Vector location in 2D plane
+	 * @param size How big the boid will be
+	 */
+	public DynamicBoid(Canvas canvas, Vector position, int size){
+		super(canvas, position, size);
 		velocity = new Vector();
 		draw();
 	}
 	
-	public DynamicBoid(Canvas myCanvas, double xPosition, double yPosition, int size){
-		super(myCanvas, xPosition, yPosition, size);
+	/**
+	 * Constructor sets up values for Boid using double for position.
+	 * 
+	 * @param canvas A Canvas object the Boid will draw too.
+	 * @param xPosition x value of location in 2D plane.
+	 * @param yPosition y value of location in 2D plane.
+	 * @param size How big the boid will be
+	 */
+	public DynamicBoid(Canvas canvas, double xPosition, double yPosition, int size){
+		super(canvas, xPosition, yPosition, size);
 		velocity = new Vector();
 		draw();
 	}

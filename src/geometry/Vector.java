@@ -18,10 +18,20 @@ package geometry;
  */
 public class Vector extends CartesianCoordinate {
 
+	/**
+	 * Default constructor creates a Vector zero magnitude.
+	 */
 	public Vector(){
 		super(0, 0);
 	}
 	
+	/**
+	 * Constructor that creates a Vector of specific x
+	 * and y values.
+	 * 
+	 * @param xValue X Position.
+	 * @param yValue Y Position.
+	 */
 	public Vector(double xValue, double yValue) {
 		super(xValue, yValue);
 	}
