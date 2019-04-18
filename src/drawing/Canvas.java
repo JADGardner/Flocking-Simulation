@@ -31,7 +31,8 @@ public class Canvas extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int xSize, ySize;
 	private List<LineSegment> lines;
-	private List<Shape> shapes;
+	private List<Shape> portals;
+	private List<Shape> walls; 
 	private final static int DEFAULT_X = 800;
 	private final static int DEFAULT_Y = 600;
 
@@ -56,7 +57,8 @@ public class Canvas extends JPanel {
 		ySize = y;
 		setupCanvas();
 		lines = Collections.synchronizedList(new ArrayList<LineSegment>());
-		shapes = Collections.synchronizedList(new ArrayList<Shape>());
+		portals = Collections.synchronizedList(new ArrayList<Shape>());
+		walls = Collections.synchronizedList(new ArrayList<Shape>());
 	}
 
 	private void setupCanvas() {
@@ -84,8 +86,15 @@ public class Canvas extends JPanel {
 			}
 		}
 		
-		synchronized (shapes) {
-			for (Shape shape : shapes) {
+		synchronized (portals) {
+			for (Shape shape : portals) {
+				g2.draw(shape);
+			}
+		}
+		
+		synchronized (walls) {
+			for (Shape shape : walls) {
+				g2.fill(shape);
 				g2.draw(shape);
 			}
 		}
@@ -93,15 +102,27 @@ public class Canvas extends JPanel {
 	}
 	
 	
-	public void addShape(Shape shape) {
+	public void addPortal(Shape shape) {
 		synchronized (shape) {
-			shapes.add(shape);
+			portals.add(shape);
 		}
 	}
 	
-	public void removeShapes() {
-		synchronized (shapes) {
-			shapes.clear();
+	public void removePortal() {
+		synchronized (portals) {
+			portals.clear();
+		}
+	}
+	
+	public void addWall(Shape shape) {
+		synchronized (walls) {
+			walls.add(shape);
+		}
+	}
+	
+	public void removeWall() {
+		synchronized (walls) {
+			walls.clear();
 		}
 	}
 
@@ -160,7 +181,8 @@ public class Canvas extends JPanel {
 	public void clear() {
 		synchronized (lines) {
 			lines.clear();
-			shapes.clear();
+			portals.clear();
+			walls.clear();
 		}
 	}
 	

@@ -3,6 +3,7 @@ import java.awt.Point;
 import java.util.List;
 import drawing.Canvas;
 import drawing.Portal;
+import drawing.Wall;
 import geometry.Vector;
 
 
@@ -40,7 +41,8 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	
 	@Override
 	public void calculateVelocity(List<? extends DynamicBoid> friendlyBoids, 
-			List<? extends DynamicBoid> otherBoids, List<Portal> portals, int maxX, int maxY, Point mousePoint) {
+			List<? extends DynamicBoid> otherBoids, List<Wall> walls, List<Portal> portals, 
+			int maxX, int maxY, Point mousePoint) {
 
 		cohesionSperationAlignment(friendlyBoids);
 		Vector boundaryVector = boundaryVector(maxX, maxY);
@@ -75,6 +77,8 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		velocity.add(portalVector);
 		
 		velocity.add(fleePredator(otherBoids));
+		
+		velocity.add(avoidWalls(walls));
 
 		if(velocity.getMagnitude() > maxSpeed) {
 			velocity.setMagnitude(maxSpeed);
@@ -244,6 +248,11 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		
 		return fleePredatorVector;
 	}
+   
+   protected Vector avoidWalls(List<Wall> walls) {
+	   Vector avoidWallsVector = new Vector();
+	   return avoidWallsVector;
+   }
 
 	public void setAlignment(double alignment) {
 		this.alignmentConstant = alignment;

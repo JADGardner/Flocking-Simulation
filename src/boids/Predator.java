@@ -5,6 +5,7 @@ import java.util.List;
 
 import drawing.Canvas;
 import drawing.Portal;
+import drawing.Wall;
 import geometry.Vector;
 
 public class Predator extends IntelligentBoid implements IntelligentAgent {
@@ -19,7 +20,8 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 	
 	@Override
 	public void calculateVelocity(List<? extends DynamicBoid> friendlyBoids, 
-			List<? extends DynamicBoid> otherBoids, List<Portal> portals, int maxX, int maxY, Point mousePoint) {
+			List<? extends DynamicBoid> otherBoids, List<Wall> walls, 
+			List<Portal> portals, int maxX, int maxY, Point mousePoint) {
 	
 		cohesionSperationAlignment(friendlyBoids);
 		

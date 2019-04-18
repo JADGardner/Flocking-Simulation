@@ -39,10 +39,6 @@ public class SliderPanel extends JPanel {
 		
 		slider = new JSlider(min, max, initial);
 		slider.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		slider.setMinorTickSpacing(max/10);
-		slider.setMajorTickSpacing(max/2);
-		slider.setPaintLabels(true);
-		slider.setPaintTicks(true);
 		slider.setOpaque(false);
 		slider.setMinimum(min);
 		slider.setMaximum(max);

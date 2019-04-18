@@ -7,8 +7,6 @@ import java.util.List;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import com.sun.swing.internal.plaf.metal.resources.metal;
-
 import boids.IntelligentBoid;
 import boids.Predator;
 import drawing.Portal;
@@ -23,6 +21,7 @@ public class ActionListeners {
 	List<IntelligentBoid> boids;
 	private List<Predator> predators;
 	List<Portal> portals;
+	int wallButtonPressCount = 0;
 	
 	public ActionListeners(FlockingSimulator FS){
 		
@@ -33,11 +32,11 @@ public class ActionListeners {
 		predators = FS.getPredators();
 		portals = FS.getPortals();
 		
-		sidePanelActionListeners(gui, sidePanel);
+		sidePanelActionListeners(FS, gui, sidePanel);
 		lowePanelActionListeners(FS, gui, lowerPanel);
 	}
 	
-	private void sidePanelActionListeners(GUI g, SidePanel sp){
+	private void sidePanelActionListeners(FlockingSimulator FS, GUI g, SidePanel sp){
 		
 		sp.maxSpeedSlider.getSlider().addChangeListener(new ChangeListener() {
 
@@ -236,10 +235,19 @@ public class ActionListeners {
 					} else {
 						portals.remove(portals.size() - 1);
 						portals.remove(portals.size() - 1);
-						g.getCanvas().removeShapes();
+						g.getCanvas().removePortal();
 					}
 					
 				}
+			}
+		});
+		
+		sp.addWallButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FS.setWallPlace();
+				wallButtonPressCount++;
 			}
 		});
 		

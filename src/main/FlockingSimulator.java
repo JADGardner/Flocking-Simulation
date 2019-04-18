@@ -1,6 +1,7 @@
 package main;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
@@ -36,7 +37,7 @@ public class FlockingSimulator {
 	private int boidSize = 10;
 	private int predatorSize = 20;
 	
-	boolean mouseClicked = false;
+	boolean wallPlace = false;
 	int mouseClickX;
 	int mouseClickY;
 	
@@ -62,39 +63,14 @@ public class FlockingSimulator {
 	}
 	
 	private void mouseListnerSetUp(){
-		gui.getFrame().addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+		gui.getFrame().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Clicked");
-				mouseClicked = true;
 				mouseClickX = e.getX();
 				mouseClickY = e.getY();
-				
+				if(wallPlace == true) {
+					walls.add(new Wall(mouseClickX, mouseClickY-40));
+				}
 			}
 		});
 	}
@@ -138,29 +114,19 @@ public class FlockingSimulator {
 		// game loop
 		while (continueRunning){
 
-
 			Point mousePoint = MouseInfo.getPointerInfo().getLocation();
 			SwingUtilities.convertPointFromScreen(mousePoint, gui.getCanvas());
-			
-			if(mouseClicked == true){
-				mouseClicked = false;
-				// Check if the place walls option has been pressed
-				// if both are true check if mouse click is on canvas
-				// if that is true create a wall object
-				// this might be able to be done within the event listener
-			}
-			
 
 			synchronized (boids){
 				for (IntelligentBoid intelligentBoid : boids) {
-					intelligentBoid.calculateVelocity(boids, predators, portals, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
+					intelligentBoid.calculateVelocity(boids, predators, walls, portals, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
 					intelligentBoid.update(deltaTime);
 				}
 			}
 			
 			synchronized (predators){
 				for (Predator predator : predators) {
-					predator.calculateVelocity(predators, boids, portals, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
+					predator.calculateVelocity(predators, boids, walls, portals, gui.getCanvas().getWidth(), gui.getCanvas().getHeight(), mousePoint);
 					predator.update(deltaTime);
 				}
 			}
@@ -169,7 +135,7 @@ public class FlockingSimulator {
 			
 			synchronized (portals){
 				for (Portal portal : portals) {
-					gui.getCanvas().addShape(portal);
+					gui.getCanvas().addPortal(portal);
 				}
 			}
 			
@@ -182,6 +148,12 @@ public class FlockingSimulator {
 			synchronized (predators){
 				for (Predator predator : predators) {
 					predator.draw();
+				}
+			}
+			
+			synchronized (walls){
+				for (Wall wall : walls) {
+					gui.getCanvas().addWall(wall);
 				}
 			}
 			
@@ -215,7 +187,6 @@ public class FlockingSimulator {
 	}
 	
 
-
 	public int getNumberOfPredators() {
 		return numberOfPredators;
 	}
@@ -226,6 +197,10 @@ public class FlockingSimulator {
 	
 	public int getPredatorSize(){
 		return predatorSize;
+	}
+	
+	public void setWallPlace() {
+		wallPlace = !wallPlace;
 	}
 
 	public static void main(String[] args) {
