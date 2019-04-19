@@ -373,7 +373,8 @@ public class ActionListeners {
 			}
 		});
 		
-		/**/
+		/* Allows the user to turn on or off the affect of wind 
+		 * on the Boids and predators. */
 		sp.addWindButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -381,15 +382,11 @@ public class ActionListeners {
 				
 				synchronized (boids){
 					for(IntelligentBoid intelligentBoid : boids) {
+						/* Swaps the current windOn State. */
 						intelligentBoid.setWindOn();
 					}
 				}
-				synchronized (predators){
-					for(Predator predator : predators) {
-						predator.setWindOn();
-					}
-				}
-				
+
 				if(!FS.isWindState()) {
 					sp.getWindButtonPanel().getButtonLabel().setText("Turn Wind Off ");
 				} else {
@@ -404,9 +401,19 @@ public class ActionListeners {
 	
 	
 	
-	
+	/**
+	 * This method contains all the ActionListeners required by the LowerPanel 
+	 * of the GUI.
+	 * 
+	 * @param FS A FlockingSimulator Object.
+	 * @param g A GUI Object.
+	 * @param sp A SidePanel Object.
+	 */
 	private void lowerPanelActionListeners(FlockingSimulator FS, GUI g, LowerPanel lp){
 		
+		/* Adds a new Boid object to the list of Boids. Instantiates the 
+		 * Boids off screen so that it smoothly joins the group. Increases 
+		 * the count keeping track of the number of Boids. */
 		lp.addBoidButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -421,6 +428,8 @@ public class ActionListeners {
 			}
 		});
 
+		/* Removes a Boid from the list of Boids. unDrawing 
+		 * the boid first is necessary so no ghost of the boids remains. */
 		lp.removeBoidButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -437,6 +446,8 @@ public class ActionListeners {
 			}
 		});
 		
+		/* Adds a new Predator object to the list of Predators. Instantiates the 
+		 * Predator in the centre of the canvas. */
 		lp.addPredatorButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -451,6 +462,8 @@ public class ActionListeners {
 			}
 		});
 
+		/* Removes a Boid from the list of Predator. unDrawing 
+		 * the Predator first is necessary so no ghost of the Predator remains. */
 		lp.removePredatorButton.addActionListener(new ActionListener() {
 
 			@Override

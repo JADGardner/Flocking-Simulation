@@ -1,3 +1,11 @@
+/*
+ * GUI.java				19/04/2019
+ * Version: 1.0
+ * Programmer: Y3843317
+ * Company: University of York
+ * 
+ */
+
 package gui;
 
 import java.awt.BorderLayout;
@@ -7,7 +15,13 @@ import javax.swing.JFrame;
 import drawing.Canvas;
 import main.FlockingSimulator;
 
-
+/**
+ * This Class represents a GUI Object that
+ * is the top level of all other gui objects.
+ * 
+ * @author Y3843317
+ *
+ */
 public class GUI {
 	private JFrame frame;
 	private Canvas canvas;
@@ -23,6 +37,7 @@ public class GUI {
 	private int iconSize = 70;
 	private int fontSize = 40;
 
+	/* Default setting for sliders. */
 	final int MIN_SPEED = 100;
 	final int INITIAL_SPEED = 300;
 	final int MAX_SPEED = 500;
@@ -46,20 +61,28 @@ public class GUI {
 	int numberOfBoids;
 	int numberOfPredators;
 
-	
+	/**
+	 * The constructor for the GUI. Generates an overall JFrame
+	 * and populates that Frame with multiple JPanels all with
+	 * different functionality. 
+	 * 
+	 * @param FS A FlockingSimulator Object
+	 */
 	public GUI(FlockingSimulator FS) {
-		frame = new JFrame();
-		frame.setTitle("Flocking Simulation");
 		this.numberOfBoids = FS.getNumberOfBoids();
 		this.numberOfPredators = FS.getNumberOfPredators();
-
+		
+		frame = new JFrame();
+		frame.setTitle("Java Assignment, Student Y3843317");
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setResizable(false);
 		
+		/* Main component things are drawn too in each loop. */
 		canvas = new Canvas();
 
+		/* These contain the user controls for the program. */
 		sidePanel = new SidePanel(this, sidePanelWidth, height, sidePanelSectionHeight, iconSize);
 		lowerPanel = new LowerPanel(this, width, lowerPanelHeight, iconSize, fontSize);
 		
@@ -107,6 +130,4 @@ public class GUI {
 		return iconSize;
 	}
 	
-	
-
 }
