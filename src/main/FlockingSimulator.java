@@ -71,11 +71,17 @@ public class FlockingSimulator {
 	private int predatorSize = 20;
 	
 	/* Has the place a wall button been pressed. */
-	boolean wallPlace = false;
+	private boolean wallPlace = false;
+	
+	/* The current state of the wallButton. */
+	private int wallButtonPressCount = 0;
 	
 	/* Used as location for placing a Wall. */
-	int mouseClickX;
-	int mouseClickY;
+	private int mouseClickX;
+	private int mouseClickY;
+	
+	/* Is wind turned on or off. */
+	private boolean windState = false;
 
 	/**
 	 * Initialises all the necessary objects needed for the 
@@ -177,9 +183,6 @@ public class FlockingSimulator {
 	 * deltaTime, 20 milliseconds. 
 	 */
 	private void gameLoop(){
-		
-		System.out.println(gui.getCanvas().getWidth());
-		System.out.println(gui.getCanvas().getHeight());
 
 		int deltaTime = 20;
 		boolean continueRunning = true;
@@ -288,6 +291,22 @@ public class FlockingSimulator {
 		wallPlace = !wallPlace;
 	}
 	
+	public int getWallButtonPressCount() {
+		return wallButtonPressCount;
+	}
+
+	public void setWallButtonPressCount(int wallButtonPressCount) {
+		this.wallButtonPressCount = wallButtonPressCount;
+	}
+
+	public boolean isWindState() {
+		return windState;
+	}
+
+	public void swapWindState() {
+		this.windState = !this.windState;
+	}
+
 	/* This is the entry point to the program. */
 	public static void main(String[] args) {
 		new FlockingSimulator();

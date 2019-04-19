@@ -82,8 +82,10 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 		/* Limit the overall magnitude of Velocity otherwise
 		 * it would forever increase and the Boids would 
 		 * disappear off screen. */
-		if(velocity.getMagnitude() > maxSpeed+predatorSpeedBoost) {
-			velocity.setMagnitude(maxSpeed+predatorSpeedBoost);
+		if(maxSpeedOn) {
+			if(velocity.getMagnitude() > maxSpeed+predatorSpeedBoost) {
+				velocity.setMagnitude(maxSpeed+predatorSpeedBoost);
+			}
 		}
 	}
 	

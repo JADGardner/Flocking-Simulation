@@ -49,8 +49,7 @@ public class LowerPanel extends JPanel {
 	ImageIcon plusIcon;
 	ImageIcon subtractIcon;
 	
-	private int height = 100;
-	
+	int fontSize;
 	/**
 	 * Default Constructor, sets up the default settings 
 	 * for a LowerPanel and spits the Panel into 
@@ -59,11 +58,12 @@ public class LowerPanel extends JPanel {
 	 * 
 	 * @param g A GUI Object the SidePanel is part of.
 	 */
-	public LowerPanel(GUI g){
+	public LowerPanel(GUI g, int width, int height, int iconSize, int fontSize){
+		this.fontSize = fontSize;
 		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		setMinimumSize(new Dimension(g.getWidth(), height));
-		setMaximumSize(new Dimension(g.getWidth(), height));
+		setMinimumSize(new Dimension(width, height));
+		setMaximumSize(new Dimension(width, height));
 		
 		/* Importing the ImageIcons and catching the exception
 		 * of the path being incorrect. The ImageIcons are 
@@ -77,7 +77,7 @@ public class LowerPanel extends JPanel {
 			System.exit(0);
 		}
 		
-		plusIcon = Utils.scaleImageIcon(plusIcon, g.getIconSize());
+		plusIcon = Utils.scaleImageIcon(plusIcon, iconSize);
 		
 		try {
 			subtractIcon = Utils.importImageIcon("./Icons/subtract.png");
@@ -87,7 +87,7 @@ public class LowerPanel extends JPanel {
 			System.exit(0);
 		}
 		
-		subtractIcon = Utils.scaleImageIcon(subtractIcon, g.getIconSize());
+		subtractIcon = Utils.scaleImageIcon(subtractIcon, iconSize);
 		
 		
 		JPanel eastPanel = setUpEastPanel(g);
@@ -119,19 +119,22 @@ public class LowerPanel extends JPanel {
 		boidCounter = new JLabel("Boids: " + g.numberOfBoids);
 		boidCounter.setBackground(Color.white);
 		boidCounter.setBorder(null);
-		boidCounter.setFont(new Font("Segoe UI", Font.PLAIN, 40));
+		boidCounter.setFont(new Font("Segoe UI", Font.PLAIN, fontSize));
 		
 		addBoidButton = new JButton();
 		addBoidButton.setBackground(Color.white);
 		addBoidButton.setBorder(null);
 		addBoidButton.setIcon(plusIcon);
-		addBoidButton.setToolTipText("Add a boid"); // show a message 
+		
+		/* Shows a message when hovering over with
+		 * the cursor. */
+		addBoidButton.setToolTipText("Add a boid"); 
 		
 		removeBoidButton = new JButton();
 		removeBoidButton.setBackground(Color.white);
 		removeBoidButton.setBorder(null);
 		removeBoidButton.setIcon(subtractIcon);
-		removeBoidButton.setToolTipText("Remove a boid"); // show a message 
+		removeBoidButton.setToolTipText("Remove a boid");
 		
 		westPanel.add(boidCounter, BorderLayout.WEST);
 		westPanel.add(addBoidButton, BorderLayout.WEST);
@@ -155,9 +158,8 @@ public class LowerPanel extends JPanel {
 		predatorCounter = new JLabel("Predators: " + g.numberOfPredators);
 		predatorCounter.setBackground(Color.white);
 		predatorCounter.setBorder(null);
-		predatorCounter.setFont(new Font("Segoe UI", Font.PLAIN, 40));
+		predatorCounter.setFont(new Font("Segoe UI", Font.PLAIN, fontSize));
 		
-
 		addPredatorButton = new JButton();
 		addPredatorButton.setBackground(Color.white);
 		addPredatorButton.setBorder(null);

@@ -36,11 +36,13 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	private double windEffectConstant = 10;
 
 	private boolean cohesionOn = true;
-	private boolean seperationOn = true;
+	private boolean separationOn = true;
 	private boolean alignmentOn = true;
 	private boolean boundryOn = true;
 	private boolean mouseAvoidOn = true;
 	private boolean windOn = false;
+	
+	protected boolean maxSpeedOn = true;
 	
 	protected Vector cohesionVector = new Vector();
 	protected Vector seperationVector = new Vector();
@@ -117,7 +119,7 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 			velocity.add(cohesionVector);
 		}
 
-		if(seperationOn) {
+		if(separationOn) {
 			velocity.add(seperationVector);
 		}
 
@@ -150,8 +152,10 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		/* Limit the overall magnitude of Velocity otherwise
 		 * it would forever increase and the Boids would 
 		 * disappear off screen. */
-		if(velocity.getMagnitude() > maxSpeed) {
-			velocity.setMagnitude(maxSpeed);
+		if(maxSpeedOn) {
+			if(velocity.getMagnitude() > maxSpeed) {
+				velocity.setMagnitude(maxSpeed);
+			}
 		}
 	}
 
@@ -504,16 +508,16 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		this.cohesionOn = cohesionOn;
 	}
 
-	public void setSeperation(double seperation) {
+	public void setSeparation(double seperation) {
 		this.seperationConstant = seperation;
 	}
 	
-	public boolean isSeperationOn() {
-		return seperationOn;
+	public boolean isSeparationOn() {
+		return separationOn;
 	}
 	
-	public void setSeperationOn(boolean seperationOn) {
-		this.seperationOn = seperationOn;
+	public void setSeparationOn(boolean seperationOn) {
+		this.separationOn = seperationOn;
 	}
 
 	public void setAvoidMouseConstant(double avoidMouseConstant) {
@@ -531,6 +535,12 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	public void setWindOn() {
 		windOn = !windOn;
 	}
+
+	public void setMaxSpeedOn(boolean maxSpeedOn) {
+		this.maxSpeedOn = maxSpeedOn;
+	}
+	
+	
 	
 	
 }

@@ -38,7 +38,7 @@ public class SidePanel extends JPanel {
 	 * need to be visible to the ActionListeners Class. */
 	SliderPanel maxSpeedSlider;
 	SliderPanel cohesionSlider;
-	SliderPanel sperationSlider;
+	SliderPanel separationSlider;
 	SliderPanel alignmentSlider;
 	SliderPanel mouseAvoidanceSlider;
 	
@@ -54,16 +54,13 @@ public class SidePanel extends JPanel {
 	private ImageIcon vortexIcon;
 	private ImageIcon windIcon;
 
-	private int width = 350;
-	private int height = 1000;
-
 	/**
 	 * Default Constructor initialises all the SliderPanels 
 	 * and imports the icons for the buttonPanels.
 	 * 
 	 * @param g A GUI Object the SidePanel is part of.
 	 */
-	public SidePanel(GUI g){
+	public SidePanel(GUI g, int width, int height, int sectionHeight, int iconSize){
 		/* Setting up default properties of a SidePanel. */
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.white);
@@ -74,13 +71,13 @@ public class SidePanel extends JPanel {
 		 * default minimum, maximum and initial settings. */
 		maxSpeedSlider = new SliderPanel("Max Speed", g.MIN_SPEED, g.MAX_SPEED, g.INITIAL_SPEED);
 		cohesionSlider = new SliderPanel("Cohesion", g.MIN_COHESION_CONSTANT, g.MAX_COHESION_CONSTANT, g.INITIAL_COHESION_CONSTANT);
-		sperationSlider = new SliderPanel("Seperation", g.MIN_SEPERATION_CONSTANT, g.MAX_SEPERATION_CONSTANT, g.INITIAL_SEPERATION_CONSTANT);
+		separationSlider = new SliderPanel("Seperation", g.MIN_SEPERATION_CONSTANT, g.MAX_SEPERATION_CONSTANT, g.INITIAL_SEPERATION_CONSTANT);
 		alignmentSlider = new SliderPanel("Alignment", g.MIN_ALIGNMENT_CONSTANT, g.MAX_ALIGNMENT_CONSTANT, g.INITIAL_ALIGNMENT_CONSTANT);
 		mouseAvoidanceSlider = new SliderPanel("Mouse Avoidance", g.MIN_MOUSE_AVOID_CONSTANT, g.MAX_MOUSE_AVOID_CONSTANT, g.INITIAL_MOUSE_AVOID_CONSTANT);
 
 		add(maxSpeedSlider);
 		add(cohesionSlider);
-		add(sperationSlider);
+		add(separationSlider);
 		add(alignmentSlider);
 		add(mouseAvoidanceSlider);
 		
@@ -102,7 +99,7 @@ public class SidePanel extends JPanel {
 		}
 		
 		/* Scaling the ImageIcon. */
-		wallIcon = Utils.scaleImageIcon(wallIcon, g.getIconSize());
+		wallIcon = Utils.scaleImageIcon(wallIcon, iconSize);
 		
 		addWallButton.setIcon(wallIcon);
 		addWallButton.setToolTipText("Add walls");
@@ -119,7 +116,7 @@ public class SidePanel extends JPanel {
 			System.exit(0);
 		}
 		
-		vortexIcon = Utils.scaleImageIcon(vortexIcon, g.getIconSize());
+		vortexIcon = Utils.scaleImageIcon(vortexIcon, iconSize);
 		
 		addVortexButton.setIcon(vortexIcon);
 		addVortexButton.setToolTipText("Add vortex");
@@ -136,15 +133,15 @@ public class SidePanel extends JPanel {
 			System.exit(0);
 		}
 		
-		windIcon = Utils.scaleImageIcon(windIcon, g.getIconSize());
+		windIcon = Utils.scaleImageIcon(windIcon, iconSize);
 		
 		addWindButton.setIcon(windIcon);
 		addWindButton.setToolTipText("Add wind");
 	
 		/* Creating the ButtonPanels using the new Icons. */
-		wallButtonPanel = new ButtonPanel("Add Walls ", addWallButton);
-		vortexButtonPanel = new ButtonPanel("Add Vortex ", addVortexButton);
-		windButtonPanel = new ButtonPanel("Turn Wind On ", addWindButton);
+		wallButtonPanel = new ButtonPanel("Add Walls ", addWallButton, width, sectionHeight);
+		vortexButtonPanel = new ButtonPanel("Add Vortex ", addVortexButton, width, sectionHeight);
+		windButtonPanel = new ButtonPanel("Turn Wind On ", addWindButton, width, sectionHeight);
 		
 		add(wallButtonPanel);
 		add(vortexButtonPanel);

@@ -13,6 +13,15 @@ public class GUI {
 	private Canvas canvas;
 	private SidePanel sidePanel;
 	private LowerPanel lowerPanel;
+	
+	/* Default display sizes. */
+	private int width = 1500;
+	private int height = 1000;
+	private int lowerPanelHeight = 100;
+	private int sidePanelWidth = 350;
+	private int sidePanelSectionHeight = 110;
+	private int iconSize = 70;
+	private int fontSize = 40;
 
 	final int MIN_SPEED = 100;
 	final int INITIAL_SPEED = 300;
@@ -36,10 +45,7 @@ public class GUI {
 	
 	int numberOfBoids;
 	int numberOfPredators;
-	
-	int width = 1500;
-	int height = 1000;
-	int iconSize = 70;
+
 	
 	public GUI(FlockingSimulator FS) {
 		frame = new JFrame();
@@ -54,8 +60,8 @@ public class GUI {
 		
 		canvas = new Canvas();
 
-		sidePanel = new SidePanel(this);
-		lowerPanel = new LowerPanel(this);
+		sidePanel = new SidePanel(this, sidePanelWidth, height, sidePanelSectionHeight, iconSize);
+		lowerPanel = new LowerPanel(this, width, lowerPanelHeight, iconSize, fontSize);
 		
 		frame.add(sidePanel, BorderLayout.EAST);
 		frame.add(lowerPanel, BorderLayout.SOUTH);
@@ -87,6 +93,14 @@ public class GUI {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public int getLowerPanelHeight() {
+		return lowerPanelHeight;
+	}
+
+	public int getSidePanelWidth() {
+		return sidePanelWidth;
 	}
 
 	public int getIconSize() {
