@@ -62,7 +62,7 @@ public class FlockingSimulator {
 	private List<Portal> portals;
 	private List<Wall> walls;
 	
-	private int numberOfBoids = 800;
+	private int numberOfBoids = 500;
 	private int numberOfPredators = 0;
 	
 	/* This controls the lengths of the sides of 
@@ -117,10 +117,10 @@ public class FlockingSimulator {
 				mouseClickX = e.getX();
 				mouseClickY = e.getY();
 				if(wallPlace == true) {
-					/* 'mouseClickY-40' is due to an offset of around
-					 * 40 pixels from the value of e.getX() to the 
+					/* 'mouseClickY-65' is due to an offset of around
+					 * 65 pixels from the value of e.getY() to the 
 					 * actual mouse pointer tip. */
-					walls.add(new Wall(mouseClickX, mouseClickY-40));
+					walls.add(new Wall(mouseClickX-25, mouseClickY-65));
 				}
 			}
 		});
@@ -145,21 +145,25 @@ public class FlockingSimulator {
 			 * sides of the canvas, top, right, bottom, left.
 			 * Then set the boid randomly along that edge but off
 			 * screen by up-to 200 pixels. */
-			int r = Utils.randomInt(4);	
-			switch(r) {
+			int side = Utils.randomInt(4);	
+			switch(side) {
 			case 0:
+				/* Top side of the screen. */
 				x = Utils.randomInt(gui.getCanvas().getWidth());
 				y = -Utils.randomInt(screenOffset);
 				break;
 			case 1:
+				/* Right side of the screen. */
 				x = gui.getCanvas().getWidth() + Utils.randomInt(screenOffset);
 				y = Utils.randomInt(gui.getCanvas().getHeight());
 				break;
 			case 2:
+				/* Bottom side of the screen. */
 				x = Utils.randomInt(gui.getCanvas().getWidth());
 				y = gui.getCanvas().getHeight() + Utils.randomInt(screenOffset);
 				break;
 			case 3:
+				/* Left side of the screen. */
 				x = -Utils.randomInt(screenOffset);
 				y = Utils.randomInt(gui.getCanvas().getHeight());
 				break;
@@ -176,6 +180,9 @@ public class FlockingSimulator {
 	 * deltaTime, 20 milliseconds. 
 	 */
 	private void gameLoop(){
+		
+		System.out.print(gui.getCanvas().getWidth());
+		System.out.print(gui.getCanvas().getHeight());
 
 		int deltaTime = 20;
 		boolean continueRunning = true;

@@ -49,7 +49,8 @@ public class GUI {
 		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
 		size = (int) (0.5*screenDimension.getWidth());
 		
-		frame.setSize((int) (1.374*size), size);
+		//frame.setSize((int) (1.374*size), size);
+		frame.setSize(1500, 1000);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setResizable(false);

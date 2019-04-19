@@ -234,8 +234,8 @@ public class ActionListeners {
 						int x = Utils.randomInt(gui.getCanvas().getWidth());
 						int y = Utils.randomInt(gui.getCanvas().getHeight());
 						portals.add(new Portal(x, y));
-						x = Utils.randomInt(gui.getCanvas().getWidth());
-						y = Utils.randomInt(gui.getCanvas().getHeight());
+						x = Utils.randomInt(gui.getCanvas().getWidth() - 100) + 50;
+						y = Utils.randomInt(gui.getCanvas().getHeight() - 200) + 100;
 						portals.add(new Portal(x, y));
 					} else {
 						sp.getVortexButtonPanel().getButtonLabel().setText("Add Vortex ");

@@ -11,6 +11,7 @@ import geometry.Vector;
 public class Predator extends IntelligentBoid implements IntelligentAgent {
 	
 	private int predatorPerception = 200;
+	private int predatorSpeedBoost = 50;
 	
 	/**
 	 * Default Constructor that creates an Predator of a specific
@@ -81,8 +82,8 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 		/* Limit the overall magnitude of Velocity otherwise
 		 * it would forever increase and the Boids would 
 		 * disappear off screen. */
-		if(velocity.getMagnitude() > maxSpeed+50) {
-			velocity.setMagnitude(maxSpeed+50);
+		if(velocity.getMagnitude() > maxSpeed+predatorSpeedBoost) {
+			velocity.setMagnitude(maxSpeed+predatorSpeedBoost);
 		}
 	}
 	

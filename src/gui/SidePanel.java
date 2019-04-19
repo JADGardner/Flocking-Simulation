@@ -1,3 +1,11 @@
+/*
+ * SidePanel.java				19/04/2019
+ * Version: 1.0
+ * Programmer: Y3843317
+ * Company: University of York
+ * 
+ */
+
 package gui;
 
 import java.awt.Color;
@@ -10,6 +18,15 @@ import javax.swing.JPanel;
 
 import tools.Utils;
 
+/**
+ * This Class represents a SidePanel which is 
+ * an extension of JPanel. It contains multiple SliderPanels
+ * and JButtons to provide the user with interactivity 
+ * within the program.
+ * 
+ * @author Y3843317
+ *
+ */
 public class SidePanel extends JPanel {
 	/**
 	 * 
@@ -33,7 +50,8 @@ public class SidePanel extends JPanel {
 	ButtonPanel infoPanel;
 
 	public SidePanel(GUI g){
-		setPreferredSize(new Dimension((int) (0.374*g.size), g.size));
+		//setPreferredSize(new Dimension((int) (0.374*g.size), g.size));
+		setPreferredSize(new Dimension(350, 1000));
 		setBackground(Color.white);
 		BoxLayout sideLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		setLayout(sideLayout);

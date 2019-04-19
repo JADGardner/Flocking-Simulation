@@ -1,9 +1,19 @@
+/*
+ * SliderPanel.java				19/04/2019
+ * Version: 1.0
+ * Programmer: Y3843317
+ * Company: University of York
+ * 
+ */
+
 package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,7 +24,14 @@ import javax.swing.border.TitledBorder;
 
 import tools.Utils;
 
-
+/**
+ * This Class is a representation of a SliderPanel. This is an
+ * extension of the JPanel Class and is used to combine the 
+ * functionality of JSliders and JCheckBoxes into one Class.
+ * 
+ * @author Y3843317
+ *
+ */
 public class SliderPanel extends JPanel {
 	
 	/**
@@ -27,26 +44,67 @@ public class SliderPanel extends JPanel {
 	private ImageIcon toggleOnIcon;
 	private ImageIcon toggleOffIcon;
 	
+	private int borderThickness = 10;
+	private int defaultIconSize = 40;
+	private int panelWidth = 350;
+	private int panelHeight = 110;
+	
+	/**
+	 * Default Constructor for the SliderPanel, sets 
+	 * up the JSlider and JCheckbox using the default sizes
+	 * and icons and the inputs from the user.
+	 * 
+	 * @param name What the JSlider will be called.
+	 * @param min The minimum value of the JSlider.
+	 * @param max The maximum value of the JSlider.
+	 * @param initial The initial value of the JSlider.
+	 */
 	public SliderPanel(String name, int min, int max, int initial){
 		
 		setBackground(Color.white);
+		
+		/* Creating a border for the SliderPanel that 
+		 * has no colour and contains only the String name
+		 * that the user has provided. */
 		TitledBorder titleBorder = BorderFactory.createTitledBorder(
-							 BorderFactory.createMatteBorder(10, 10, 10, 10, Color.white), name);
+							       BorderFactory.createMatteBorder(borderThickness, borderThickness, 
+								   borderThickness, borderThickness, Color.white), name);
+		/* Positioning the title, setting its font and 
+		 * adding it to the SliderPanel. */
 		titleBorder.setTitleJustification(TitledBorder.LEFT);
 		titleBorder.setTitleFont(new Font("Segoe UI", Font.PLAIN, 30));
 		setBorder(titleBorder);
 		
+		/* Instantiating the JSlider to the user provided
+		 * settings. */
 		slider = new JSlider(min, max, initial);
-		slider.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		slider.setOpaque(false);
-		slider.setMinimum(min);
-		slider.setMaximum(max);
 		
-		toggleOnIcon = new ImageIcon("toggle_on_side.png");
-		toggleOffIcon = new ImageIcon("toggle_off_side.png");
-		toggleOnIcon = Utils.scaleImageIcon(toggleOnIcon, 40);
-		toggleOffIcon = Utils.scaleImageIcon(toggleOffIcon, 40);
+		/* Importing the two custom icons to be used 
+		 * on the JCheckBoxes. Handling an potential error
+		 * if the path is wrong. */ 
+		try {
+			toggleOnIcon = Utils.importImageIcon("./Icons/toggle_on.png");
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace(); 
+			System.out.println("File not found: \"" + "toggle_on.png" + "\". Terminating!");
+			System.exit(0);
+		}
 		
+		try {
+			toggleOffIcon = Utils.importImageIcon("./Icons/toggle_off.png");
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace(); 
+			System.out.println("File not found: \"" + "toggle_off.png" + "\". Terminating!");
+			System.exit(0);
+		}
+		
+		/* Scaling the Icons to the correct size. */
+		toggleOnIcon = Utils.scaleImageIcon(toggleOnIcon, defaultIconSize);
+		toggleOffIcon = Utils.scaleImageIcon(toggleOffIcon, defaultIconSize);
+		
+		/* Instantiating the JCehckBox and setting
+		 * its Icons to the custom ones. */
 		functionSwitch = new JCheckBox();
 		functionSwitch.setSelected(true);
 		functionSwitch.setSelectedIcon(toggleOnIcon);
@@ -56,9 +114,9 @@ public class SliderPanel extends JPanel {
 		add(slider, BorderLayout.WEST);
 		add(functionSwitch, BorderLayout.EAST);
 
-		//setBorder(BorderFactory.createLineBorder(new EmptyBorder(10, 10, 10, 10), Color.black));
-		setMinimumSize(new Dimension(350, 110));
-		setMaximumSize(new Dimension(350, 110));
+		/* Forcing JPanel to set dimensions. */
+		setMinimumSize(new Dimension(panelWidth, panelHeight));
+		setMaximumSize(new Dimension(panelWidth, panelHeight));
 
 	}
 	

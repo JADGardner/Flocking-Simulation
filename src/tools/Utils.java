@@ -12,6 +12,8 @@
 
 package tools;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -50,5 +52,28 @@ public class Utils {
 		Image newimg = image.getScaledInstance(size, size,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		i = new ImageIcon(newimg);  // Transform back to ImageIcon
 		return i;
+	}
+	
+	/**
+	 * This method is used to import a file and 
+	 * store it as an ImageIcon. It throws a 
+	 * FileNotFoundExecption by checking if the file
+	 * exists. 
+	 * 
+	 * @param filename The path of the file.
+	 * @return ImageIcon The image icon at the selected path.
+	 * @throws FileNotFoundException If the file doesn't exist.
+	 */
+	public static ImageIcon importImageIcon(String filename) throws FileNotFoundException {
+		/* ImageIcon opening a file doesn't throw any exceptions by
+		 * default so needed to first open it using File class
+		 * and check and throw the exception. */
+		File tempFile = new File(filename);
+		if(tempFile.exists()) {
+			ImageIcon imageIconFile = new ImageIcon(filename);
+			return imageIconFile;
+		} else {
+			throw new FileNotFoundException();
+		}
 	}
 }
