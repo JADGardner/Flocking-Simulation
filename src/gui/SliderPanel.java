@@ -13,7 +13,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -48,6 +47,7 @@ public class SliderPanel extends JPanel {
 	private int defaultIconSize = 40;
 	private int panelWidth = 350;
 	private int panelHeight = 110;
+	private int fontSize = 30;
 	
 	/**
 	 * Default Constructor for the SliderPanel, sets 
@@ -72,7 +72,7 @@ public class SliderPanel extends JPanel {
 		/* Positioning the title, setting its font and 
 		 * adding it to the SliderPanel. */
 		titleBorder.setTitleJustification(TitledBorder.LEFT);
-		titleBorder.setTitleFont(new Font("Segoe UI", Font.PLAIN, 30));
+		titleBorder.setTitleFont(new Font("Segoe UI", Font.PLAIN, fontSize));
 		setBorder(titleBorder);
 		
 		/* Instantiating the JSlider to the user provided
@@ -81,7 +81,7 @@ public class SliderPanel extends JPanel {
 		slider.setOpaque(false);
 		
 		/* Importing the two custom icons to be used 
-		 * on the JCheckBoxes. Handling an potential error
+		 * on the JCheckBoxes. Handling a potential error
 		 * if the path is wrong. */ 
 		try {
 			toggleOnIcon = Utils.importImageIcon("./Icons/toggle_on.png");

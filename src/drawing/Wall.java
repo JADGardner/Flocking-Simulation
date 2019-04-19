@@ -39,15 +39,18 @@ public class Wall extends Rectangle2D.Double {
 	 * perfectly round with radius 50 with Position 
 	 * xPos and yPos.
 	 * 
-	 * @param xPos X position of top left corner.
-	 * @param yPos Y position of top left corner.
+	 * @param xPos X position of centre.
+	 * @param yPos Y position of centre.
 	 */
 	public Wall(int xPos, int yPos){
 		super();
 		height = 50;
 		width = 50;
-		x = xPos;
-		y = yPos;
+		/* To draw a square with the xPos and yPos
+		 * being the centre it needs adjusting by
+		 * the factors below. */
+		x = xPos - width/2;
+		y = yPos - height;
 	}
 	
 	public void setXPosition(double xPosition){

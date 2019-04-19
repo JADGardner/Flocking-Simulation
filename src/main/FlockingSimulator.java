@@ -117,10 +117,7 @@ public class FlockingSimulator {
 				mouseClickX = e.getX();
 				mouseClickY = e.getY();
 				if(wallPlace == true) {
-					/* 'mouseClickY-65' is due to an offset of around
-					 * 65 pixels from the value of e.getY() to the 
-					 * actual mouse pointer tip. */
-					walls.add(new Wall(mouseClickX-25, mouseClickY-65));
+					walls.add(new Wall(mouseClickX, mouseClickY));
 				}
 			}
 		});
@@ -181,8 +178,8 @@ public class FlockingSimulator {
 	 */
 	private void gameLoop(){
 		
-		System.out.print(gui.getCanvas().getWidth());
-		System.out.print(gui.getCanvas().getHeight());
+		System.out.println(gui.getCanvas().getWidth());
+		System.out.println(gui.getCanvas().getHeight());
 
 		int deltaTime = 20;
 		boolean continueRunning = true;

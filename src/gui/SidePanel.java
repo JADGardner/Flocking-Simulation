@@ -10,6 +10,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -33,6 +34,8 @@ public class SidePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/* These are using no modifier as they
+	 * need to be visible to the ActionListeners Class. */
 	SliderPanel maxSpeedSlider;
 	SliderPanel cohesionSlider;
 	SliderPanel sperationSlider;
@@ -42,20 +45,33 @@ public class SidePanel extends JPanel {
 	JButton addWallButton;
 	JButton addVortexButton;
 	JButton addWindButton;
-	JButton infoButton;
 	
 	ButtonPanel wallButtonPanel; 
 	ButtonPanel vortexButtonPanel;
 	ButtonPanel windButtonPanel;
-	ButtonPanel infoPanel;
+	
+	private ImageIcon wallIcon;
+	private ImageIcon vortexIcon;
+	private ImageIcon windIcon;
 
+	private int width = 350;
+	private int height = 1000;
+
+	/**
+	 * Default Constructor initialises all the SliderPanels 
+	 * and imports the icons for the buttonPanels.
+	 * 
+	 * @param g A GUI Object the SidePanel is part of.
+	 */
 	public SidePanel(GUI g){
-		//setPreferredSize(new Dimension((int) (0.374*g.size), g.size));
-		setPreferredSize(new Dimension(350, 1000));
+		/* Setting up default properties of a SidePanel. */
+		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.white);
 		BoxLayout sideLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		setLayout(sideLayout);
 		
+		/* Initialising all the SliderPanels with their 
+		 * default minimum, maximum and initial settings. */
 		maxSpeedSlider = new SliderPanel("Max Speed", g.MIN_SPEED, g.MAX_SPEED, g.INITIAL_SPEED);
 		cohesionSlider = new SliderPanel("Cohesion", g.MIN_COHESION_CONSTANT, g.MAX_COHESION_CONSTANT, g.INITIAL_COHESION_CONSTANT);
 		sperationSlider = new SliderPanel("Seperation", g.MIN_SEPERATION_CONSTANT, g.MAX_SEPERATION_CONSTANT, g.INITIAL_SEPERATION_CONSTANT);
@@ -68,14 +84,25 @@ public class SidePanel extends JPanel {
 		add(alignmentSlider);
 		add(mouseAvoidanceSlider);
 		
-		// setting up buttons 
+		/* Setting up buttons */
 		
 		addWallButton = new JButton();
 		addWallButton.setBackground(Color.white);
 		addWallButton.setBorder(null);
 		
-		ImageIcon wallIcon = new ImageIcon("wall.png");
-		wallIcon = Utils.scaleImageIcon(wallIcon, (int) (0.0654*g.size));
+		/* Importing the custom icons to be used 
+		 * on the JButtons. Handling a potential error
+		 * if the path is wrong. */ 
+		try {
+			wallIcon = Utils.importImageIcon("./Icons/wall.png");
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace(); 
+			System.out.println("File not found: \"" + "wall.png" + "\". Terminating!");
+			System.exit(0);
+		}
+		
+		/* Scaling the ImageIcon. */
+		wallIcon = Utils.scaleImageIcon(wallIcon, g.getIconSize());
 		
 		addWallButton.setIcon(wallIcon);
 		addWallButton.setToolTipText("Add walls");
@@ -84,8 +111,15 @@ public class SidePanel extends JPanel {
 		addVortexButton.setBackground(Color.white);
 		addVortexButton.setBorder(null);
 		
-		ImageIcon vortexIcon = new ImageIcon("vortex.png");
-		vortexIcon = Utils.scaleImageIcon(vortexIcon, (int) (0.0654*g.size));
+		try {
+			vortexIcon = Utils.importImageIcon("./Icons/vortex.png");
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace(); 
+			System.out.println("File not found: \"" + "vortex.png" + "\". Terminating!");
+			System.exit(0);
+		}
+		
+		vortexIcon = Utils.scaleImageIcon(vortexIcon, g.getIconSize());
 		
 		addVortexButton.setIcon(vortexIcon);
 		addVortexButton.setToolTipText("Add vortex");
@@ -94,31 +128,27 @@ public class SidePanel extends JPanel {
 		addWindButton.setBackground(Color.white);
 		addWindButton.setBorder(null);
 		
-		ImageIcon windIcon = new ImageIcon("wind.png");
-		windIcon = Utils.scaleImageIcon(windIcon, (int) (0.0654*g.size));
+		try {
+			windIcon = Utils.importImageIcon("./Icons/wind.png");
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace(); 
+			System.out.println("File not found: \"" + "wind.png" + "\". Terminating!");
+			System.exit(0);
+		}
+		
+		windIcon = Utils.scaleImageIcon(windIcon, g.getIconSize());
 		
 		addWindButton.setIcon(windIcon);
 		addWindButton.setToolTipText("Add wind");
-		
-		infoButton = new JButton();
-		infoButton.setBackground(Color.white);
-		infoButton.setBorder(null);
-		
-		ImageIcon infoIcon = new ImageIcon("info.png");
-		infoIcon = Utils.scaleImageIcon(infoIcon, (int) (0.0654*g.size));
-		
-		infoButton.setIcon(infoIcon);
-		infoButton.setToolTipText("Info");
-				
+	
+		/* Creating the ButtonPanels using the new Icons. */
 		wallButtonPanel = new ButtonPanel("Add Walls ", addWallButton);
 		vortexButtonPanel = new ButtonPanel("Add Vortex ", addVortexButton);
 		windButtonPanel = new ButtonPanel("Turn Wind On ", addWindButton);
-		infoPanel = new ButtonPanel("", infoButton);
 		
 		add(wallButtonPanel);
 		add(vortexButtonPanel);
 		add(windButtonPanel);
-		//add(infoPanel);
 	}
 
 	public ButtonPanel getWallButtonPanel() {

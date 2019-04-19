@@ -1,9 +1,18 @@
+/*
+ * LowerPanel.java				19/04/2019
+ * Version: 1.0
+ * Programmer: Y3843317
+ * Company: University of York
+ * 
+ */
+
 package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.FileNotFoundException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -13,6 +22,15 @@ import javax.swing.JPanel;
 
 import tools.Utils;
 
+/**
+ * This Class represents a LowerPanel, which is an
+ * extension of a JPanel designed to be used at the 
+ * bottom of the GUI. It contains the Add Boid and
+ * Add Predator functionality.
+ * 
+ * @author Y3843317
+ *
+ */
 public class LowerPanel extends JPanel {
 
 	/**
@@ -22,7 +40,6 @@ public class LowerPanel extends JPanel {
 	
 	JLabel boidCounter;
 	JButton addBoidButton;
-	JButton restartButton;
 	JButton removeBoidButton;
 	
 	JLabel predatorCounter;
@@ -32,17 +49,45 @@ public class LowerPanel extends JPanel {
 	ImageIcon plusIcon;
 	ImageIcon subtractIcon;
 	
+	private int height = 100;
+	
+	/**
+	 * Default Constructor, sets up the default settings 
+	 * for a LowerPanel and spits the Panel into 
+	 * an East and West portion with the West being about
+	 * the Boids and the East being about the predators. 
+	 * 
+	 * @param g A GUI Object the SidePanel is part of.
+	 */
 	public LowerPanel(GUI g){
 		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		setMinimumSize(new Dimension(g.getCanvas().getWidth(), (int) (0.0654*g.size)));
-		setMaximumSize(new Dimension(g.getCanvas().getWidth(), (int) (0.0654*g.size)));
+		setMinimumSize(new Dimension(g.getWidth(), height));
+		setMaximumSize(new Dimension(g.getWidth(), height));
 		
-		plusIcon = new ImageIcon("plus.png");
-		plusIcon = Utils.scaleImageIcon(plusIcon, (int) (0.0654*g.size));
+		/* Importing the ImageIcons and catching the exception
+		 * of the path being incorrect. The ImageIcons are 
+		 * then scaled to the correct size. */
 		
-		subtractIcon = new ImageIcon("subtract.png");
-		subtractIcon = Utils.scaleImageIcon(subtractIcon, (int) (0.0654*g.size));
+		try {
+			plusIcon = Utils.importImageIcon("./Icons/plus.png");
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace(); 
+			System.out.println("File not found: \"" + "plus.png" + "\". Terminating!");
+			System.exit(0);
+		}
+		
+		plusIcon = Utils.scaleImageIcon(plusIcon, g.getIconSize());
+		
+		try {
+			subtractIcon = Utils.importImageIcon("./Icons/subtract.png");
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace(); 
+			System.out.println("File not found: \"" + "subtract.png" + "\". Terminating!");
+			System.exit(0);
+		}
+		
+		subtractIcon = Utils.scaleImageIcon(subtractIcon, g.getIconSize());
 		
 		
 		JPanel eastPanel = setUpEastPanel(g);
@@ -56,10 +101,21 @@ public class LowerPanel extends JPanel {
 
 	}
 	
+	/**
+	 * Initialises the JButtons and JLabels for 
+	 * use in controlling adding and removing Boids.
+	 * Returns a JPanel for this functionality.
+	 * 
+	 * @param g
+	 * @return JPanel The panel for Adding Boids.
+	 */
 	private JPanel setUpWestPanel(GUI g){
 		JPanel westPanel = new JPanel();
 		westPanel.setBackground(Color.white);
 		
+		/* boidCounter has the word Boids: followed by the
+		 * number of boids on screen at that time. This updates
+		 * as the user adds more Boids. */
 		boidCounter = new JLabel("Boids: " + g.numberOfBoids);
 		boidCounter.setBackground(Color.white);
 		boidCounter.setBorder(null);
@@ -68,19 +124,8 @@ public class LowerPanel extends JPanel {
 		addBoidButton = new JButton();
 		addBoidButton.setBackground(Color.white);
 		addBoidButton.setBorder(null);
-	
 		addBoidButton.setIcon(plusIcon);
 		addBoidButton.setToolTipText("Add a boid"); // show a message 
-		
-		restartButton = new JButton();
-		restartButton.setBackground(Color.white);
-		restartButton.setBorder(null);
-		
-		ImageIcon restartIcon = new ImageIcon("restart.png");
-		restartIcon = Utils.scaleImageIcon(restartIcon, (int) (0.0654*g.size));
-	
-		restartButton.setIcon(restartIcon);
-		restartButton.setToolTipText("Reset the program"); // show a message 
 		
 		removeBoidButton = new JButton();
 		removeBoidButton.setBackground(Color.white);
@@ -90,12 +135,19 @@ public class LowerPanel extends JPanel {
 		
 		westPanel.add(boidCounter, BorderLayout.WEST);
 		westPanel.add(addBoidButton, BorderLayout.WEST);
-		//westPanel.add(restartButton, BorderLayout.CENTER);
 		westPanel.add(removeBoidButton, BorderLayout.WEST);
 		
 		return westPanel;
 	}
 	
+	/**
+	 * Initialises the JButtons and JLabels for 
+	 * use in controlling adding and removing Predators.
+	 * Returns a JPanel for this functionality.
+	 * 
+	 * @param g
+	 * @return JPanel The panel for Adding Predators.
+	 */
 	private JPanel setUpEastPanel(GUI g){
 		JPanel eastPanel = new JPanel();
 		eastPanel.setBackground(Color.white);

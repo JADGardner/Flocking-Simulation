@@ -47,8 +47,9 @@ public class Portal extends Ellipse2D.Double{
 		super();
 		height = 100;
 		width = 100;
-		x = xPos - width/2;
-		y = yPos - height/2;
+		
+		x = xPos;
+		y = yPos;
 	}
 	
 	public void setXPosition(double xPosition){

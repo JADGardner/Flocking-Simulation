@@ -1,8 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -36,21 +34,20 @@ public class GUI {
 	final int INITIAL_MOUSE_AVOID_CONSTANT = 100;
 	final int MAX_MOUSE_AVOID_CONSTANT = 300;
 	
-	int size;
 	int numberOfBoids;
 	int numberOfPredators;
+	
+	int width = 1500;
+	int height = 1000;
+	int iconSize = 70;
 	
 	public GUI(FlockingSimulator FS) {
 		frame = new JFrame();
 		frame.setTitle("Flocking Simulation");
 		this.numberOfBoids = FS.getNumberOfBoids();
 		this.numberOfPredators = FS.getNumberOfPredators();
-		
-		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-		size = (int) (0.5*screenDimension.getWidth());
-		
-		//frame.setSize((int) (1.374*size), size);
-		frame.setSize(1500, 1000);
+
+		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setResizable(false);
@@ -82,6 +79,18 @@ public class GUI {
 
 	public JFrame getFrame() {
 		return frame;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getIconSize() {
+		return iconSize;
 	}
 	
 	
