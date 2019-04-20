@@ -224,14 +224,10 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 			/* this.position is then subtracted to get a Vector that points
 			 * in the direction the Boid must move to head to the average position. */
 			cohesionVector.sub(position);
+			/* The Vector is then scaled by cohesionConstant to allow 
+			 * control over how much of an effect this Vector has. */
+			cohesionVector.scale(cohesionConstant);
 		}
-		
-		/* The Vector is then scaled by cohesionConstant to allow 
-		 * control over how much of an effect this Vector has. */
-		cohesionVector.scale(cohesionConstant);
-
-		/* Separation is also scaled to allow control over effect. */
-		seperationVector.scale(seperationConstant);
 
 		/* If countAlignment is zero then no Boids were near by. If it
 		 * is greater than zero then the Alignment rule has applied and 
@@ -245,11 +241,14 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 			 * in the direction the Boid must move to be heading
 			 * in the to the average velocity. */
 			alignmentVector.sub(velocity);
+			/* The Vector is then scaled by alignmentConstant to allow 
+			 * control over how much of an effect this Vector has. */
+			alignmentVector.scale(alignmentConstant);
 		}
 		
-		/* The Vector is then scaled by alignmentConstant to allow 
-		 * control over how much of an effect this Vector has. */
-		alignmentVector.scale(alignmentConstant);
+		/* Separation is also scaled to allow control over effect. */
+		seperationVector.scale(seperationConstant);
+		
 	}
 	
 
