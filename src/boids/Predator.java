@@ -127,11 +127,10 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 		 * needs scaling. */
 		if(countChaseBoid > 0){
 			chaseBoid.scale(1/countChaseBoid);
+			/* this.position is then subtracted to get a Vector that points
+			 * in the direction the Predator must move to head to the average position. */
+			chaseBoid.sub(position);
 		}
-		
-		/* this.position is then subtracted to get a Vector that points
-		 * in the direction the Predator must move to head to the average position. */
-		chaseBoid.sub(position);
 			
 		return chaseBoid;
 	}

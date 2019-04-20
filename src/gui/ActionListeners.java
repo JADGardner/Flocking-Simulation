@@ -146,9 +146,10 @@ public class ActionListeners {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
+				System.out.println(sp.cohesionSlider.getSlider().getValue());
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setCohesion((sp.cohesionSlider.getSlider().getValue()/10));
+						intelligentBoid.setCohesion((sp.cohesionSlider.getSlider().getValue()*0.1));
 					}
 				}
 			}
@@ -165,7 +166,7 @@ public class ActionListeners {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setCohesionOn(true);
-							intelligentBoid.setCohesion((g.INITIAL_COHESION_CONSTANT/10));
+							intelligentBoid.setCohesion((g.INITIAL_COHESION_CONSTANT*0.1));
 							sp.cohesionSlider.getSlider().setValue(g.INITIAL_COHESION_CONSTANT);
 						}
 					}
@@ -188,7 +189,7 @@ public class ActionListeners {
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setSeparation(sp.separationSlider.getSlider().getValue()/10);
+						intelligentBoid.setSeparation(sp.separationSlider.getSlider().getValue()*0.1);
 					}
 				}
 			}
@@ -205,7 +206,7 @@ public class ActionListeners {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setSeparationOn(true);
-							intelligentBoid.setSeparation(1);
+							intelligentBoid.setSeparation(g.INITIAL_SEPERATION_CONSTANT*0.1);
 							sp.separationSlider.getSlider().setValue(g.INITIAL_SEPERATION_CONSTANT);
 						}
 					}
@@ -228,7 +229,7 @@ public class ActionListeners {
 			public void stateChanged(ChangeEvent e) {
 				synchronized (boids) {
 					for(IntelligentBoid intelligentBoid : boids) {
-						intelligentBoid.setAlignment((sp.alignmentSlider.getSlider().getValue()/1000));
+						intelligentBoid.setAlignment((sp.alignmentSlider.getSlider().getValue()*0.001));
 					}
 				}
 			}
@@ -245,7 +246,7 @@ public class ActionListeners {
 					synchronized (boids){
 						for(IntelligentBoid intelligentBoid : boids) {
 							intelligentBoid.setAlignmentOn(true);
-							intelligentBoid.setAlignment((g.INITIAL_ALIGNMENT_CONSTANT/1000));
+							intelligentBoid.setAlignment((g.INITIAL_ALIGNMENT_CONSTANT*0.001));
 							sp.alignmentSlider.getSlider().setValue(g.INITIAL_ALIGNMENT_CONSTANT);
 						}
 					}

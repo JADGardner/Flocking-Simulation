@@ -29,11 +29,11 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 	protected int perceptionRadius = 100;
 	protected int seperationRadius = 20;
 
-	private double alignmentConstant = 0.120;
+	private double alignmentConstant = 0.1;
 	private double cohesionConstant = 0.01;
 	private double seperationConstant = 1;
 	private double avoidMouseConstant = 100;
-	private double windEffectConstant = 10;
+	private double windEffectConstant = 15;
 
 	private boolean cohesionOn = true;
 	private boolean separationOn = true;
@@ -221,11 +221,10 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 			 * position Vectors of all the nearby Boids. This needs
 			 * dividing by countCohesion to get the average position. */
 			cohesionVector.scale(1/countCohesion);
+			/* this.position is then subtracted to get a Vector that points
+			 * in the direction the Boid must move to head to the average position. */
+			cohesionVector.sub(position);
 		}
-		
-		/* this.position is then subtracted to get a Vector that points
-		 * in the direction the Boid must move to head to the average position. */
-		cohesionVector.sub(position);
 		
 		/* The Vector is then scaled by cohesionConstant to allow 
 		 * control over how much of an effect this Vector has. */
@@ -242,12 +241,11 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 			 * velocity Vectors of all the nearby Boids. This needs
 			 * dividing by countAlignment to get the average velocity. */
 			alignmentVector.scale(1/countAlignment);
+			/* this.velocity is then subtracted to get a Vector that points
+			 * in the direction the Boid must move to be heading
+			 * in the to the average velocity. */
+			alignmentVector.sub(velocity);
 		}
-
-		/* this.velocity is then subtracted to get a Vector that points
-		 * in the direction the Boid must move to be heading
-		 * in the to the average velocity. */
-		alignmentVector.sub(velocity);
 		
 		/* The Vector is then scaled by alignmentConstant to allow 
 		 * control over how much of an effect this Vector has. */
@@ -267,7 +265,7 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		
 		/* The control variables.*/
 		int scale = 20;
-		double scalingFactor = 0.5;
+		double scalingFactor = 1;
 		
 		Vector bounaryVector = new Vector();
 
