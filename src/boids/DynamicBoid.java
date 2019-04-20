@@ -21,7 +21,7 @@ import geometry.Vector;
  *
  */
 public class DynamicBoid extends Boid {
-	private double MILLISECONDS_PER_SECOND = 1000;
+	private final double MILLISECONDS_PER_SECOND = 1000;
 	
 	/* Max speed of boids in pixels per second. */
 	protected int maxSpeed = 200; 

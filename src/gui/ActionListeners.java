@@ -447,13 +447,13 @@ public class ActionListeners {
 		});
 		
 		/* Adds a new Predator object to the list of Predators. Instantiates the 
-		 * Predator in the centre of the canvas. */
+		 * Predator off screen so that it smoothly joins the group. */
 		lp.addPredatorButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				synchronized (predators){
-					predators.add(new Predator(g.getCanvas(), gui.getCanvas().getWidth()/2, gui.getCanvas().getHeight()/2, FS.getPredatorSize()));
+					predators.add(new Predator(g.getCanvas(), gui.getCanvas().getWidth() + 100, gui.getCanvas().getHeight() + 100, FS.getPredatorSize()));
 				}
 				
 				g.numberOfPredators++;

@@ -72,22 +72,22 @@ public class Boid {
 		tempPosition = position;
 		
         turn(150);
-        move(size);
+        createLineSegment(size);
         turn(120);
-        move(size);
+        createLineSegment(size);
         turn(120);
-        move(size);
+        createLineSegment(size);
        
         position = tempPosition;
     }
 	
 	/**
-	 * The Boid is moved in its current direction for the given number of pixels. 
-	 * This generates a LineSegment that is sent to the Canvas.
+	 * This generates a LineSegment that is sent to the Canvas. Based on
+	 * the current location, the current angle and the distance.
 	 * 
 	 * @param distance The number of pixels to move.
 	 */
-	public void move(double distance) {
+	public void createLineSegment(double distance) {
 		Vector nextPosition;
 		LineSegment lines;
 		double xLength, yLength;
