@@ -109,7 +109,7 @@ public class Predator extends IntelligentBoid implements IntelligentAgent {
 			 * relative to the Predator. */
 			for (DynamicBoid boid : boids) {
 				distanceApart.equals(boid.getPosition());
-				distanceApart.sub(this.getPosition()); // included " this. " for readability
+				distanceApart.sub(this.getPosition());
 				
 				
 				/* If the distance is less than the perception of the predator.

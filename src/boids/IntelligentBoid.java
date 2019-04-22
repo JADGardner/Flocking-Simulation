@@ -26,14 +26,14 @@ import geometry.Vector;
  *
  */
 public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
-	protected int perceptionRadius = 100;
+	protected int perceptionRadius = 50;
 	protected int seperationRadius = 20;
 
 	private double alignmentConstant = 0.1;
 	private double cohesionConstant = 0.01;
 	private double seperationConstant = 1;
 	private double avoidMouseConstant = 100;
-	private double windEffectConstant = 15;
+	private double windEffectConstant = 0.2;
 
 	private boolean cohesionOn = true;
 	private boolean separationOn = true;
@@ -342,7 +342,7 @@ public class IntelligentBoid extends DynamicBoid implements IntelligentAgent {
 		windVector.setY(-adjustedPositionVector.getX());
 		windVector.setX(adjustedPositionVector.getY());
 		
-		windVector.scale(windEffectConstant/adjustedPositionVector.getMagnitude());
+		windVector.scale(windEffectConstant);
 
 		return windVector;
 	}
