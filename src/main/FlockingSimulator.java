@@ -31,7 +31,6 @@ import boids.Predator;
 
 import drawing.Portal;
 import drawing.Wall;
-
 import gui.ActionListeners;
 import gui.GUI;
 
