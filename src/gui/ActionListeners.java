@@ -354,7 +354,7 @@ public class ActionListeners {
 		            	/* Allow the user to place walls on the canvas. */
 		            	FS.setWallButtonPressCount(wallButtonPressCount + 1);
 		            	FS.setWallPlace();
-		            	sp.getWallButtonPanel().getButtonLabel().setText("Stop Walls ");
+		            	sp.getWallButtonPanel().getButtonLabel().setText("Stop ");
 		            	break;	
 		            case 1:
 		            	/* Stop allowing the user to place walls on the canvas. */
@@ -366,7 +366,7 @@ public class ActionListeners {
 		            	/* Clear walls from the canvas by emptying the list and 
 		            	 * removing them from the canvas object. */
 		            	FS.setWallButtonPressCount(0);
-		            	sp.getWallButtonPanel().getButtonLabel().setText("Add Walls ");		            	
+		            	sp.getWallButtonPanel().getButtonLabel().setText("Place Walls ");		            	
 		            	walls.clear();
 		            	g.getCanvas().removeWalls();
 		                break;

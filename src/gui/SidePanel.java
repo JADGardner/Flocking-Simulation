@@ -139,7 +139,7 @@ public class SidePanel extends JPanel {
 		addWindButton.setToolTipText("Add wind");
 	
 		/* Creating the ButtonPanels using the new Icons. */
-		wallButtonPanel = new ButtonPanel("Add Walls ", addWallButton, width, sectionHeight);
+		wallButtonPanel = new ButtonPanel("Place Walls ", addWallButton, width, sectionHeight);
 		vortexButtonPanel = new ButtonPanel("Add Vortex ", addVortexButton, width, sectionHeight);
 		windButtonPanel = new ButtonPanel("Turn Wind On ", addWindButton, width, sectionHeight);
 		
