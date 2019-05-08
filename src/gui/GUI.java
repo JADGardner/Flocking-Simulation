@@ -77,7 +77,6 @@ public class GUI {
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		frame.setResizable(false);
 		
 		/* Main component things are drawn too in each loop. */
 		canvas = new Canvas();
